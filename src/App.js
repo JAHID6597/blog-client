@@ -44,6 +44,11 @@ import Comments from "./pages/public-user/comments";
 import FollowingUsers from "./pages/public-user/following-users";
 import Blogs from "./pages/user/blogs/blogs";
 import CommentDetails from "./pages/user/comments/comment-details";
+import UpdateComment from "./pages/user/comments/update-comment";
+import LikedBlogsDetails from "./pages/user/liked-blogs/liked-blogs-details";
+import BookmarkedBlogsDetails from "./pages/user/bookmarked-blogs/bookmarked-blogs-details";
+import FollowersDetails from "./pages/user/follow/followers-details";
+import FollowingsDetails from "./pages/user/follow/followings-details";
 
 
 const App = () => {
@@ -92,14 +97,19 @@ const App = () => {
 					<Route path="/user/blog/create" element={<CreateBlog />} />
 					<Route path="/user/blog/:slug/update" element={<UpdateBlog />} />
 					<Route path="/user/comments" element={<CommentDetails />} />
+					<Route path="/user/blog/:slug/comment/:id/update" element={<UpdateComment />} />
+					<Route path="/user/liked-blogs" element={<LikedBlogsDetails />} />
+					<Route path="/user/bookmarked-blogs" element={<BookmarkedBlogsDetails />} />
+					<Route path="/user/followers" element={<FollowersDetails />} />
+					<Route path="/user/followings" element={<FollowingsDetails />} />
 				</Route>
 
-				{/* <Route element={<PrivateAdminOutletRoute />}>
+				<Route element={<PrivateAdminOutletRoute />}>
 					<Route path="/admin/dashboard" element={<AdminDashboard />} />
 					<Route path="/admin/users" element={<Users />} />
 					<Route path="/admin/categories" element={<Categories />} />
 					<Route path="/admin/category/create" element={<CreateCategory />} />
-				</Route> */}
+				</Route>
 				
 				<Route path="/404" element={<Page404 />}/>
 				<Route path="/*" element={<Navigate to="/404" replace />}/>

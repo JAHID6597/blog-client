@@ -30,10 +30,25 @@ const DashboardAppbar = ({ open, setOpen, privateProfile }) => {
 	return (
 		<AppBar theme={theme} drawerwidth={dashboarddrawerwidth} position="fixed" open={open} sx={{ background: "#fff", zIndex: 1500 }}>
 			<Toolbar>
-				<IconButton onClick={handleDrawerOpen} edge="start" sx={{ color: '#5e5e5e', mr: 2, ...(open && { display: "none" }) }}><MenuIcon /></IconButton>
+				<IconButton
+					onClick={handleDrawerOpen}
+					edge="start"
+					sx={{ color: '#5e5e5e', mr: 2, ...(open && { display: "none" }) }}
+				>
+					<MenuIcon />
+				</IconButton>
 
 				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-					<Typography as={LinkTo} variant="h6" noWrap component="div" sx={{ color: '#5e5e5e', fontWeight: 'bold' }} url="/"> { APP_NAME } </Typography>
+					<Typography
+						as={LinkTo}
+						variant="h6"
+						noWrap
+						component="div"
+						sx={{ color: '#5e5e5e', fontWeight: 'bold' }}
+						url="/"
+					>
+						{APP_NAME}
+					</Typography>
 					
 					<Box>
 						{privateProfile?.userName[0] ?

@@ -27,12 +27,12 @@ const SideBar = ({ setToggleSideBar, toggleDrawer }) => {
 
 			<Box sx={{ width: { xs: "80vw", sm: "50vw" } }}>
 				<List>
-					<ListItem button onClick={toggleDrawer(false)}>
+					<ListItem onClick={toggleDrawer(false)}>
 						<ListItemIcon><Home /></ListItemIcon>
 						<ListItemText sx={{ textTransform: "uppercase" }} onClick={() => navigate('/')}>Home</ListItemText>
 					</ListItem>
 
-					<ListItem button onClick={handleClick}>
+					<ListItem onClick={handleClick}>
 						<ListItemIcon><Login /></ListItemIcon>
 						<ListItemText primary="SIGNIN" />
 						{open ? <ExpandLess /> : <ExpandMore />}
@@ -40,12 +40,12 @@ const SideBar = ({ setToggleSideBar, toggleDrawer }) => {
 
 					<Collapse in={open} timeout="auto" unmountOnExit>
 						<List component="div" disablePadding>
-							<ListItem button sx={{ pl: 4 }} onClick={() => handleItemClick("/users/auth")}>
+							<ListItem sx={{ pl: 4 }} onClick={() => handleItemClick("/users/auth")}>
 								<ListItemIcon><PersonOutline /></ListItemIcon>
 								<ListItemText sx={{ textTransform: "uppercase" }}>USER</ListItemText>
 							</ListItem>
 
-							<ListItem button sx={{ pl: 4 }} onClick={() => handleItemClick("/admins/auth")}>
+							<ListItem sx={{ pl: 4 }} onClick={() => handleItemClick("/admins/auth")}>
 								<ListItemIcon><Person /></ListItemIcon>
 								<ListItemText sx={{ textTransform: "uppercase" }}>ADMIN</ListItemText>
 							</ListItem>

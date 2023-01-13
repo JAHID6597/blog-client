@@ -15,13 +15,10 @@ const commonSlice = createSlice({
 		},
 		resetPageLayoutPadding: (state, action) => {
 			state.isPageLayoutPadding = action.payload;
-		},
-		resetUserDashboardBackground: (state, action) => {
-			state.userDashboardBackground = action.payload;
 		}
 	}
 });
 
-export const { resetPublicUserInfoTabItemState, resetPageLayoutPadding, resetUserDashboardBackground } = commonSlice.actions;
+export const { resetPublicUserInfoTabItemState, resetPageLayoutPadding } = commonSlice.actions;
 
 export default commonSlice.reducer;

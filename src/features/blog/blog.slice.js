@@ -14,15 +14,20 @@ const initialState = {
 	isActionError: false,
 	isSuccess: false,
 	isUpdateSuccess: false,
+	isDeleteSuccess: false,
 	isCommentUpdateSuccess: false,
+	isCommentDeleteSuccess: false,
 	isLoading: false,
 	message: '',
 	resetData: false,
+
 	readNextBlogs: [],
 	readNextBlogsMetaData: {},
+
 	comments: [],
 	commentMetaData: {},
 	comment: null,
+
 	likedBlog: null,
 	bookmarkedBlog: null,
 	blogsByCategory: [],
@@ -52,6 +57,7 @@ const initialState = {
 
 	publicUserComments: [],
 	publicUserCommentsMetaData: {},
+
 	privateUserComments: [],
 	privateUserCommentsMetaData: {},
 }
@@ -110,7 +116,7 @@ export const deleteBlog = createAsyncThunk('blog/delete-blog', async (slug, thun
 	try {
 		const token = thunkAPI.getState().user.user.accessToken;
 
-		return await blogService.updateBlog(slug, token);
+		return await blogService.deleteBlog(slug, token);
 	} catch (error) {
 		const message = (error.response && error.response.data) || (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
 		
@@ -244,9 +250,9 @@ export const getCommentsByPublicUser = createAsyncThunk('blog/get-comments-by-pu
 
 export const getCommentsByPrivateUser = createAsyncThunk('blog/get-comments-by-private-user', async (data={}, thunkAPI) => {
 	try {
-		const token = thunkAPI.getState().user.user.accessToken;
-
 		const { page, limit, search} = data;
+		
+		const token = thunkAPI.getState().user.user.accessToken;
 
         return await blogService.getCommentsByPrivateUser(page, limit, search || "", token);
     }
@@ -407,7 +413,9 @@ const rejectedState = (state, message) => {
 	state.isError = true;
 	state.isSuccess = false;
 	state.isUpdateSuccess = false;
+	state.isDeleteSuccess = false;
 	state.isCommentUpdateSuccess = false;
+	state.isCommentDeleteSuccess = false;
 	state.isLoading = false;
 	state.message = message;
 }
@@ -419,7 +427,9 @@ const resetState = state => {
 	state.isLoading = false;
 	state.message = '';
 	state.isUpdateSuccess = false;
+	state.isDeleteSuccess = false;
 	state.isCommentUpdateSuccess = false;
+	state.isCommentDeleteSuccess = false;
 	state.resetData = false;
 }
 
@@ -555,21 +565,37 @@ const blogSlice = createSlice({
             })
             .addCase(deleteBlog.fulfilled, (state, action) => {
 				fulfilledState(state);
+				state.isDeleteSuccess = true;
 
 				state.blogs = state.blogs.filter(blg => blg._id !== action.payload._id);
+				state.metaData.total = state.metaData.total - 1;
+
 				state.blogsByPublicUser = state.blogsByPublicUser.filter(blg => blg._id !== action.payload._id);
+				state.blogsMetaDataByPublicUser.total = state.blogsMetaDataByPublicUser.total - 1;
+
 				state.blogsByPrivateUser = state.blogsByPrivateUser.filter(blg => blg._id !== action.payload._id);
+				state.blogsMetaDataByPrivateUser.total = state.blogsMetaDataByPrivateUser.total - 1;
 
 				state.blogsByCategory = state.blogsByCategory.filter(blg => blg._id !== action.payload._id);
+				state.blogsByCategoryMetaData.total = state.blogsByCategoryMetaData.total - 1;
+
 				state.blogsByTag = state.blogsByTag.filter(blg => blg._id !== action.payload._id);
+				state.blogsByTagMetaData.total = state.blogsByTagMetaData.total - 1;
 				
-				state.likedBlogsByPublicUser = state.likedBlogsByPublicUser.filter(blg => blg._id !== action.payload._id);
-				state.likedBlogsByPrivateUser = state.likedBlogsByPrivateUser.filter(blg => blg._id !== action.payload._id);
+				state.likedBlogsByPublicUser = state.likedBlogsByPublicUser.filter(blg => blg.blog._id !== action.payload._id);
+				state.likedBlogsMetaDataByPublicUser.total = state.likedBlogsMetaDataByPublicUser.total - 1;
+
+				state.likedBlogsByPrivateUser = state.likedBlogsByPrivateUser.filter(blg => blg.blog._id !== action.payload._id);
+				state.likedBlogsMetaDataByPrivateUser.total = state.likedBlogsMetaDataByPrivateUser.total - 1;
 				
-				state.bookmarkedBlogsByPublicUser = state.bookmarkedBlogsByPublicUser.filter(blg => blg._id !== action.payload._id);
-				state.bookmarkedBlogsByPrivateUser = state.bookmarkedBlogsByPrivateUser.filter(blg => blg._id !== action.payload._id);
+				state.bookmarkedBlogsByPublicUser = state.bookmarkedBlogsByPublicUser.filter(blg => blg.blog._id !== action.payload._id);
+				state.bookmarkedBlogsMetaDataByPublicUser.total = state.bookmarkedBlogsMetaDataByPublicUser.total - 1;
+
+				state.bookmarkedBlogsByPrivateUser = state.bookmarkedBlogsByPrivateUser.filter(blg => blg.blog._id !== action.payload._id);
+				state.bookmarkedBlogsMetaDataByPrivateUser.total = state.bookmarkedBlogsMetaDataByPrivateUser.total - 1;
 
 				state.readNextBlogs = state.readNextBlogs.filter(blg => blg._id !== action.payload._id);
+				state.readNextBlogsMetaData.total = state.readNextBlogsMetaData.total - 1;
             })
             .addCase(deleteBlog.rejected, (state, action) => {
                 rejectedState(state, action.payload);
@@ -589,6 +615,13 @@ const blogSlice = createSlice({
 				fulfilledState(state);
 				state.blog.likes = action.payload.likes;
 				state.likedBlog = action.payload;
+
+				state.likedBlogsByPublicUser = state.likedBlogsByPublicUser.filter(blg => blg.blog._id !== action.payload._id);
+				state.likedBlogsMetaDataByPublicUser.total = state.likedBlogsMetaDataByPublicUser.total - 1;
+
+				state.likedBlogsByPrivateUser = state.likedBlogsByPrivateUser.filter(blg => blg.blog._id !== action.payload._id);
+				state.likedBlogsMetaDataByPrivateUser.total = state.likedBlogsMetaDataByPrivateUser.total - 1;
+
 				state.isUpdateSuccess = true;
             })
             .addCase(likeBlog.rejected, (state, action) => {
@@ -601,6 +634,12 @@ const blogSlice = createSlice({
 				state.blog.bookmarks = action.payload.bookmarks;
 				state.bookmarkedBlog = action.payload;
 				state.isUpdateSuccess = true;
+
+				state.bookmarkedBlogsByPublicUser = state.bookmarkedBlogsByPublicUser.filter(blg => blg.blog._id !== action.payload._id);
+				state.bookmarkedBlogsMetaDataByPublicUser.total = state.bookmarkedBlogsMetaDataByPublicUser.total - 1;
+
+				state.bookmarkedBlogsByPrivateUser = state.bookmarkedBlogsByPrivateUser.filter(blg => blg.blog._id !== action.payload._id);
+				state.bookmarkedBlogsMetaDataByPrivateUser.total = state.bookmarkedBlogsMetaDataByPrivateUser.total - 1;
             })
             .addCase(bookmarkBlog.rejected, (state, action) => {
 				rejectedState(state, action.payload);
@@ -648,7 +687,17 @@ const blogSlice = createSlice({
             })
             .addCase(updateComment.fulfilled, (state, action) => {
 				fulfilledState(state);
-				state.comments = state.comments.map(cmnt => cmnt._id === action.payload._id ? action.payload : cmnt);
+				state.isCommentUpdateSuccess = true;
+
+				state.comments = state.comments.map(cmnt => cmnt._id === action.payload._id
+					? { ...action.payload, blog: cmnt.blog, user: cmnt.user }
+					: cmnt
+				);
+				
+				state.privateUserComments = state.privateUserComments.map(cmnt => cmnt._id === action.payload._id
+					? { ...action.payload, blog: cmnt.blog, user: cmnt.user }
+					: cmnt
+				);
             })
             .addCase(updateComment.rejected, (state, action) => {
                 rejectedState(state, action.payload);
@@ -658,8 +707,13 @@ const blogSlice = createSlice({
             })
             .addCase(deleteComment.fulfilled, (state, action) => {
 				fulfilledState(state);
+				state.isCommentDeleteSuccess = true;
+				
 				state.comments = state.comments.filter(cmnt => cmnt._id !== action.payload._id);
 				state.commentMetaData.total = state.commentMetaData.total - 1;
+
+				state.privateUserComments = state.privateUserComments.filter(cmnt => cmnt._id !== action.payload._id);
+				state.privateUserCommentsMetaData.total = state.privateUserCommentsMetaData.total - 1;
             })
             .addCase(deleteComment.rejected, (state, action) => {
                 rejectedState(state, action.payload);

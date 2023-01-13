@@ -8,7 +8,6 @@ import FullBackdrop from "../../../../components/common/full-backdrop";
 import Error from "../../../../components/common/error";
 import { resetUserCommonState, updateProfile } from "../../../../features/user/user.slice";
 import validation from "./validation";
-import { resetUserDashboardBackground } from "../../../../features/common/common.slice";
 import { toast } from "react-toastify";
 
 
@@ -63,12 +62,6 @@ const UpdateProfile = () => {
 	useEffect(() => {
 		setErrorMessage(validation(touched, formData, setSubmit));
 	}, [formData, setErrorMessage, setSubmit, touched]);
-
-	useEffect(() => {
-		dispatch(resetUserDashboardBackground('#EAEDED'));
-
-		return () => dispatch(resetUserDashboardBackground(''));
-	}, [dispatch])
 
 	const handleBlur = (e) => setTouched({ ...touched, [e.target.name]: true });
 

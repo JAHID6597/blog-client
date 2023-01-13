@@ -36,8 +36,8 @@ const updateBlog = async (formData, slug, token) => {
 	return data;
 };
 
-const deleteBlog = async (formData, slug, token) => {
-	const { data } = await axios.delete(`${baseURL}/api/blog/${slug}`, formData, config(token));
+const deleteBlog = async (slug, token) => {
+	const { data } = await axios.delete(`${baseURL}/api/blog/${slug}`, config(token));
 	
 	return data;
 };
@@ -156,19 +156,25 @@ const getBookmarkedBlogsByPrivateUser = async (page, limit, search, token) => {
 };
 
 const getCommentsByPublicUser = async (userName, page, limit, search) => {
-	const { data } = await axios.get(`${baseURL}/api/user/${userName}/comments?page=${page}&limit=${limit}&search=${search}`);
+	const { data } = await axios.get(`${baseURL}/api/user/${userName}/blogs/comments?page=${page}&limit=${limit}&search=${search}`);
 
 	return data;
 };
 
 const getCommentsByPrivateUser = async (page, limit, search, token) => {
-	const { data } = await axios.get(`${baseURL}/api/user/comments?page=${page}&limit=${limit}&search=${search}`, config(token));
+	const { data } = await axios.get(`${baseURL}/api/user/blogs/comments?page=${page}&limit=${limit}&search=${search}`, config(token));
 
 	return data;
 };
 
 
-const blogService = { getBlogs, getBlog, createBlog, updateBlog, deleteBlog, getReadNextBlogs, likeBlog, bookmarkBlog, getComment, getComments, createComment, updateComment, deleteComment, getBlogsByCategory, getBlogsByTag, getBlogByPublicUser, getBlogsByPublicUser, getBlogByPrivateUser, getBlogsByPrivateUser,
+const blogService = {
+	getBlogs, getBlog, createBlog, updateBlog, deleteBlog,
+	getReadNextBlogs, likeBlog, bookmarkBlog,
+	getComment, getComments, createComment, updateComment, deleteComment,
+	getBlogsByCategory, getBlogsByTag,
+	getBlogByPublicUser, getBlogsByPublicUser,
+	getBlogByPrivateUser, getBlogsByPrivateUser,
 	getLikedBlogsByPublicUser, getLikedBlogsByPrivateUser,
 	getBookmarkedBlogsByPublicUser, getBookmarkedBlogsByPrivateUser,
 	getCommentsByPublicUser, getCommentsByPrivateUser

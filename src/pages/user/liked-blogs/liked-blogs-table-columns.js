@@ -1,13 +1,12 @@
-import { Delete, Edit } from "@mui/icons-material";
-import { Button, FormControlLabel, IconButton, Stack, Switch } from "@mui/material";
+import { Button } from "@mui/material";
 import moment from "moment";
 import ButtonItems from "../../../components/common/button-items";
 import LinkTo from "../../../components/common/link-to";
 
 
-const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDeleteBlog) => [
+const likedBlogsTableColumns = (unLikeBlog) => [
 	{
-		name: "title",
+		name: "blog.title",
 		label: "Title",
 		options: {
 			filter: true,
@@ -15,7 +14,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		},
 	},
 	{
-		name: "tags",
+		name: "blog.tags",
 		label: "Tags",
 		options: {
 			filter: true,
@@ -24,7 +23,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		},
 	},
 	{
-		name: "categories",
+		name: "blog.categories",
 		label: "Categories",
 		options: {
 			filter: true,
@@ -33,7 +32,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		},
 	},
 	{
-		name: "likes",
+		name: "blog.likes",
 		label: "Likes",
 		options: {
 			filter: true,
@@ -42,7 +41,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		},
 	},
 	{
-		name: "comments",
+		name: "blog.comments",
 		label: "Comments",
 		options: {
 			filter: true,
@@ -51,7 +50,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		},
 	},
 	{
-		name: "bookmarks",
+		name: "blog.bookmarks",
 		label: "Bookmarks",
 		options: {
 			filter: true,
@@ -60,8 +59,26 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		},
 	},
 	{
+		name: "blog.createdAt",
+		label: "Blog CreatedAt",
+		options: {
+			filter: true,
+			sort: true,
+			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+		},
+	},
+	{
+		name: "blog.updatedAt",
+		label: "Blog UpdatedAt",
+		options: {
+			filter: true,
+			sort: true,
+			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+		},
+	},
+	{
 		name: "createdAt",
-		label: "CreatedAt",
+		label: "Like CreatedAt",
 		options: {
 			filter: true,
 			sort: true,
@@ -69,36 +86,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		},
 	},
 	{
-		name: "updatedAt",
-		label: "UpdatedAt",
-		options: {
-			filter: true,
-			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
-		},
-	},
-	{
-		name: "isActive",
-		label: "Active",
-		options: {
-			filter: true,
-			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) =>
-				<FormControlLabel
-					sx={{ display: 'block' }}
-        			control={
-          				<Switch
-            				checked={value}
-							onChange={() => handleActiveBlog(tableMeta.rowIndex)}
-            				name="isActive"
-            				color="success"
-          				/>
-        			}
-      			/>
-		},
-	},
-	{
-		name: "slug",
+		name: "blog.slug",
 		label: "Visit",
 		options: {
 			filter: true,
@@ -118,17 +106,24 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		},
 	},
 	{
-		name: "Actions",
-		label: "Actions",
+		name: "Action",
+		label: "Action",
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => <Stack direction="row" spacing={1} sx={{ justifyContent: 'center' }}>
-				<IconButton onClick={() => navigateToBlogUpdatePage(tableMeta.rowIndex)}><Edit /></IconButton>
-				<IconButton onClick={() => handleDeleteBlog(tableMeta.rowIndex)}><Delete /></IconButton>
-			</Stack>,
+			customBodyRender: (value, tableMeta, updateValue) =>
+				<Button
+					onClick={() => unLikeBlog(tableMeta.rowIndex)}
+					variant="contained"
+					color="success"
+					size="small"
+					sx={{ "&:hover": { color: "#fff" } }}
+					disableElevation
+				>
+					unlike
+				</Button>
 		},
 	},
 ];
 
-export default blogsTableColumns;
+export default likedBlogsTableColumns;

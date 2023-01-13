@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import { Edit, MoreVert } from "@mui/icons-material";
 import { Avatar, CardHeader, IconButton, Skeleton } from "@mui/material";
-import { MoreVert, Edit, Delete } from "@mui/icons-material";
 import moment from 'moment';
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DropDown from "./drop-down";
 import LinkTo from "./link-to";
-
-
-const items = [{ icon: Edit, title: "Edit" }, { icon: Delete, title: "Delete" }];
 
 
 const CardHeaderItem = ({ blog, pb }) => {
@@ -18,6 +15,12 @@ const CardHeaderItem = ({ blog, pb }) => {
 	const handleOpen = (event) => setAnchorEl(event.currentTarget);
 
 	const navigate = useNavigate();
+
+	const items = [
+		{ icon: Edit, title: "Edit", url: `/user/blog/${blog?.slug}/update` }
+	];
+
+	const navigateToUpdate = url => navigate(url);
 
 	return (
 		<>
@@ -51,6 +54,7 @@ const CardHeaderItem = ({ blog, pb }) => {
 				items={items}
 				anchorEl={anchorEl}
 				setAnchorEl={setAnchorEl}
+				handleItemClicked={navigateToUpdate}
 			/>
 		</>
 	);

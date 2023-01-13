@@ -5,7 +5,7 @@ import ListItemDetails from "../../common/list-item-details";
 
 const RightSidebar = () => {
 	const { categories } = useSelector((state) => state.category);
-console.log(categories)
+
 	return categories?.length
 		? categories
 				.slice(0, 5)

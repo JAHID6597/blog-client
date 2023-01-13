@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Stack } from "@mui/material";
 
 const ButtonItems = ({ items }) => {
+	items?.map((item) => console.log(item));
 	return (
 		<Stack direction="row" sx={{ flexWrap: "wrap", overflow: "hidden", whiteSpace: "pre-line", textOverflow: "ellipsis" }}>
 			{items?.map((item) => (

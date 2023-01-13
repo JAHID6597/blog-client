@@ -2,31 +2,46 @@ import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getPrivateProfile, resetState } from "../../features/admin/admin.slice";
+import {
+	getPrivateProfile,
+	resetUserPrivateState,
+} from "../../features/admin/admin.slice";
 import AdminDashboardLayout from "../../layout/admin-dashboard-layout";
 
-
 const PrivateAdminOutletRoute = () => {
-	const { admin, privateProfile: adminPrivateProfile } = useSelector((state) => state.admin);
+	const {
+		admin,
+		privateProfile: adminPrivateProfile,
+		isPrivateProfileError,
+	} = useSelector((state) => state.admin);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!admin) navigate("/admin/auth", { replace: true });
-		else {
+		if (!admin || isPrivateProfileError)
+			navigate("/admin/auth", { replace: true });
+	}, [admin, isPrivateProfileError, navigate]);
+
+	useEffect(() => {
+		if (admin)
 			dispatch(getPrivateProfile()).then((data) => {
 				if (data.error) {
-					localStorage.removeItem(process.env.REACT_APP_AUTH_ADMIN_KEY);
-					navigate("/admin/auth", { replace: true });
+					localStorage.removeItem(
+						process.env.REACT_APP_AUTH_ADMIN_KEY
+					);
 				}
 			});
-		}
 
-		return () => dispatch(resetState());
-	}, [dispatch, navigate, admin]);
+		return () => dispatch(resetUserPrivateState());
+	}, [admin, dispatch]);
 
-	return admin ? adminPrivateProfile ? <Outlet /> : <AdminDashboardLayout privateProfile={adminPrivateProfile} /> : '';
+	return admin ? (
+		<AdminDashboardLayout privateProfile={adminPrivateProfile}>
+			{adminPrivateProfile && <Outlet />}
+		</AdminDashboardLayout>
+	) : (
+		""
+	);
 };
-
 
 export default PrivateAdminOutletRoute;

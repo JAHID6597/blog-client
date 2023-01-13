@@ -10,7 +10,7 @@ import commentsTableColumns from "./comment-table-columns";
 
 
 const CommentDetails = () => {
-	const { privateUserComments, privateUserCommentsMetaData, isLoading, isUpdateSuccess, isError } = useSelector((state) => state.blog);
+	const { privateUserComments, privateUserCommentsMetaData, isLoading, isCommentUpdateSuccess, isCommentDeleteSuccess, isError } = useSelector((state) => state.blog);
 
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(5);
@@ -26,29 +26,33 @@ const CommentDetails = () => {
 	}, [dispatch, limit, page, search]);
 
 	useEffect(() => {
-		if (isUpdateSuccess) toast.success('Successfully updated.');
-		if (isError) toast.error('Something went wrong.');
+		if (isCommentUpdateSuccess) toast.success('Successfully Updated.');
+		if (isCommentDeleteSuccess) toast.success('Successfully Deleted.');
+		if (isError) toast.error('Something Went Wrong.');
 
 		return () => dispatch(resetBlogCommonState());
-	 }, [dispatch, isError, isUpdateSuccess]);
+	 }, [dispatch, isError, isCommentUpdateSuccess, isCommentDeleteSuccess]);
 
 	const handleActiveComment = rowIndex => {
 		const { isActive, blog, _id } = privateUserComments[rowIndex];
+
 		handleUpdate({ isActive: !isActive }, blog.slug, _id);
 	}
 
 	const handleDeleteComment = rowIndex => {
 		const { blog, _id } = privateUserComments[rowIndex];
+
 		handleDelete(blog.slug, _id);
 	}
 
 	const navigateToBlogUpdatePage = rowIndex => {
-		const { slug } = privateUserComments[rowIndex];
-		navigate(`/user/blog/${slug}/update`);
+		const { blog, _id } = privateUserComments[rowIndex];
+
+		navigate(`/user/blog/${blog.slug}/comment/${_id}/update`);
 	}
 
 	const handleUpdate = (formData, slug, id) => {
-		dispatch(updateComment({formData, slug, id})).then(d => console.log(d));
+		dispatch(updateComment({formData, slug, id}));
 	}
 
 	const handleDelete = (slug, id) => {

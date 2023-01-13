@@ -1,5 +1,7 @@
+import { Button } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import { Box, IconButton } from "@mui/material";
+import LinkTo from "../../../../components/common/link-to";
 
 const categoryTableColumns = (categories, navigate, handleDeleteCategory) => [
 	{
@@ -32,61 +34,35 @@ const categoryTableColumns = (categories, navigate, handleDeleteCategory) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRenderLite: (idx) => (
-				<img
-					src={categories[idx].image}
-					alt="category-img"
-					height="50"
-					width="50"
-				/>
+			customBodyRender: (value, tableMeta, updateValue) => (
+				<img src={value} alt="category-img" height="50" width="100%" />
 			),
 		},
 	},
 	{
-		name: "color.background",
-		label: "Background Color",
+		name: "color",
+		label: "Color",
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRenderLite: (idx) => (
+			customBodyRender: (value, tableMeta, updateValue) => (
 				<Box
 					sx={{
-						backgroundColor: categories[idx].color.background,
+						backgroundColor: value,
 						height: 25,
-						width: 25,
-						border:
-							categories[idx].color.background &&
-							"1px solid black",
+						width: '100%',
 					}}
 				/>
 			),
 		},
 	},
 	{
-		name: "color.text",
-		label: "Text Color",
-		options: {
-			filter: true,
-			sort: true,
-			customBodyRenderLite: (idx) => (
-				<Box
-					sx={{
-						backgroundColor: categories[idx].color.text,
-						height: 25,
-						width: 25,
-						border: categories[idx].color.text && "1px solid black",
-					}}
-				/>
-			),
-		},
-	},
-	{
-		name: "blogIds",
+		name: "blogs",
 		label: "Total Blogs",
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRenderLite: (idx) => categories[idx].blogIds.length,
+			customBodyRender: (value, tableMeta, updateValue) => value?.length,
 		},
 	},
 	{
@@ -115,6 +91,26 @@ const categoryTableColumns = (categories, navigate, handleDeleteCategory) => [
 					</IconButton>
 				</>
 			),
+		},
+	},
+	{
+		name: "slug",
+		label: "Visit",
+		options: {
+			filter: true,
+			sort: true,
+			customBodyRender: (value, tableMeta, updateValue) =>
+				<Button
+					as={LinkTo}
+					to={`/category/${value}`}
+					variant="contained"
+					color="primary"
+					size="small"
+					sx={{ "&:hover": { color: "#fff" } }}
+					disableElevation
+				>
+					visit category
+				</Button>,
 		},
 	},
 ];

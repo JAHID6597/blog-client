@@ -10,7 +10,7 @@ import Main from "./main";
 import useWindowSize from "../../hook/useWindowSize";
 
 
-const DashboardLayout = ({ type, privateProfile, dashboardMenu, background, children }) => {
+const DashboardLayout = ({ type, privateProfile, dashboardMenu, children }) => {
 	const windowSize = useWindowSize();
 	const [open, setOpen] = useState(windowSize.width >= 768);
 	const theme = useTheme();
@@ -20,7 +20,7 @@ const DashboardLayout = ({ type, privateProfile, dashboardMenu, background, chil
 			<DashboardAppbar open={open} setOpen={setOpen} privateProfile={privateProfile} />
             <DashboardSidebar open={open} setOpen={setOpen} type={type} dashboardMenu={dashboardMenu} />
 
-			<Main open={open} sx={{ background: background || '#FFFFFF', minHeight: '100vh' }}>
+			<Main open={open} sx={{ background: '#F4F6FE', minHeight: '100vh' }}>
 				<DrawerHeader theme={theme} />
                 {children}
 			</Main>

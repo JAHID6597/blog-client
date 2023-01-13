@@ -15,7 +15,7 @@ const Main = ({ blogs, metaData, resetData, setPage, resetDataState, type="" }) 
 	const { isActionError, message, likedBlog, bookmarkedBlog } = useSelector((state) => state.blog);
 	const { privateProfile } = useSelector((state) => state.user);
 	const [data, setData] = useState([]);
-console.log(likedBlog)
+
 	const [skeletonLoading, setSkeletonLoading] = useState(false);
 
 	const [hasMoreItems, sethasMoreItems] = useState(true);

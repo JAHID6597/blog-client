@@ -32,11 +32,20 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		},
 	},
 	{
+		name: "updatedAt",
+		label: "UpdatedAt",
+		options: {
+			filter: true,
+			sort: true,
+			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+		},
+	},
+	{
 		name: "isActive",
 		label: "Active",
 		options: {
 			filter: true,
-			sort: false,
+			sort: true,
 			customBodyRender: (value, tableMeta, updateValue) =>
 				<FormControlLabel
 					sx={{ display: 'block' }}
@@ -46,7 +55,7 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 							onChange={() => handleActiveComment(tableMeta.rowIndex)}
             				name="isActive"
             				color="success"
-          				/>
+          				/> 
         			}
       			/>
 		},
@@ -56,7 +65,7 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		label: "Visit",
 		options: {
 			filter: true,
-			sort: false,
+			sort: true,
 			customBodyRender: (value, tableMeta, updateValue) =>
 				<Button
 					as={LinkTo}
@@ -76,7 +85,7 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		label: "Actions",
 		options: {
 			filter: true,
-			sort: false,
+			sort: true,
 			customBodyRender: (value, tableMeta, updateValue) => <Stack direction="row" spacing={1} sx={{ justifyContent: 'center' }}>
 				<IconButton onClick={() => navigateToBlogUpdatePage(tableMeta.rowIndex)}><Edit /></IconButton>
 				<IconButton onClick={() => handleDeleteComment(tableMeta.rowIndex)}><Delete /></IconButton>

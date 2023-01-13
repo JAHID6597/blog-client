@@ -1,6 +1,6 @@
 import Loader from "../../components/common/loader";
 
-const options = (page, setPage, limit, setLimit, setSearch, isLoading, blogsMetaDataByPrivateUser) => {
+const options = (page, setPage, limit, setLimit, setSearch, isLoading, metaData) => {
 	return {
 		search: false,
 		searchAlwaysOpen: true,
@@ -15,7 +15,7 @@ const options = (page, setPage, limit, setLimit, setSearch, isLoading, blogsMeta
 		responsive: 'standard',
 		jumpToPage: true,
 		page: page - 1,
-		count: blogsMetaDataByPrivateUser.total,
+		count: metaData.total,
 		serverSide: true,
 		rowsPerPage: limit,
 		rowsPerPageOptions: [5, 10, 25, 50, 100],

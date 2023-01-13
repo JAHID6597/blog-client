@@ -23,7 +23,11 @@ const DashboardSidebar = ({ open, setOpen, type, dashboardMenu }) => {
 
 	return (
 		<>
-			<Backdrop sx={{ color: "#fff", zIndex: 2000, display: { md: "none", sx: open ? "block" : "none" } }} open={open} onClick={() => setOpen(!open)} />
+			<Backdrop
+				sx={{ color: "#fff", zIndex: 2000, display: { md: "none", sx: open ? "block" : "none" } }}
+				open={open}
+				onClick={() => setOpen(!open)}
+			/>
 
 			<Drawer variant="permanent" anchor="left" open={open} drawerwidth={dashboarddrawerwidth} sx={{ zIndex: open ? 3000 : 1000 }}>
 				<Box sx={{ background: userDashboardSidebarBackgroundColor, height: "100%" }}>
@@ -47,7 +51,6 @@ const DashboardSidebar = ({ open, setOpen, type, dashboardMenu }) => {
 						{dashboardMenu.map(menuItem =>
 							<React.Fragment key={menuItem.id}>
 								<ListItem
-									button
 									component={LinkTo}
 									url={menuItem.url}
 									sx={{ color: userDashboardTextColor, "&:hover": { color: userDashboardTextColor } }}
@@ -62,7 +65,6 @@ const DashboardSidebar = ({ open, setOpen, type, dashboardMenu }) => {
 									<List component="div" disablePadding>
 										{menuItem.children.map(submenu =>
 											<ListItem
-												button
 												key={submenu.id}
 												component={LinkTo}
 												url={submenu.url}

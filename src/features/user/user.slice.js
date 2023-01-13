@@ -23,8 +23,6 @@ const initialState = {
 	resetData: false,
 	isActionError: false,
 
-	
-
 	followers: [],
 	followersMetaData: {},
 	followings: [],

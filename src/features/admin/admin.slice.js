@@ -21,7 +21,7 @@ const initialState = {
 	message: ''
 }
 
-export const signIn = createAsyncThunk('adminUser/signin', async (formData, thunkAPI) => {
+export const signIn = createAsyncThunk('admin/signin', async (formData, thunkAPI) => {
 	try {
 		return await adminAuthService.signIn(formData);
 	}
@@ -32,7 +32,7 @@ export const signIn = createAsyncThunk('adminUser/signin', async (formData, thun
 	}
 });
 
-export const logout = createAsyncThunk('adminUser/logout', async (args, thunkAPI) => {
+export const logout = createAsyncThunk('admin/logout', async (args, thunkAPI) => {
 	try {
 		const token = thunkAPI.getState().admin.admin.accessToken;
 
@@ -45,7 +45,7 @@ export const logout = createAsyncThunk('adminUser/logout', async (args, thunkAPI
     }
 });
 
-export const getPrivateProfile = createAsyncThunk('adminUser/get-private-profile', async (args, thunkAPI) => {
+export const getPrivateProfile = createAsyncThunk('admin/get-private-profile', async (args, thunkAPI) => {
 	try {
 		const token = thunkAPI.getState().admin.admin.accessToken;
 
@@ -58,7 +58,7 @@ export const getPrivateProfile = createAsyncThunk('adminUser/get-private-profile
     }
 });
 
-export const updateProfile = createAsyncThunk('adminUser/update-profile', async (formData, thunkAPI) => {
+export const updateProfile = createAsyncThunk('admin/update-profile', async (formData, thunkAPI) => {
 	try {
 		const token = thunkAPI.getState().admin.admin.accessToken;
 
@@ -71,7 +71,7 @@ export const updateProfile = createAsyncThunk('adminUser/update-profile', async 
     }
 });
 
-export const deleteProfile = createAsyncThunk('adminUser/delete-profile', async (args, thunkAPI) => {
+export const deleteProfile = createAsyncThunk('admin/delete-profile', async (args, thunkAPI) => {
 	try {
 		const token = thunkAPI.getState().admin.admin.accessToken;
 
@@ -103,18 +103,25 @@ const rejectedState = (state, message) => {
 	state.message = message;
 }
 
+const resetState = state => {
+	state.isError = false;
+	state.isSuccess = false;
+	state.isLoading = false;
+	state.message = '';
+}
+
 const adminUserSlice = createSlice({
     name: 'admin',
     initialState,
     reducers: {
-        resetState: state => {
-			state.isError = false;
-			state.isPrivateProfileError = false;
-            state.isSuccess = false;
-            state.isLoading = false;
-			state.message = '';
+        resetUserPrivateState: (state) => {
+            resetState(state);
+            state.isPrivateProfileError = false;
 			state.privateProfile = null;
-        }
+		},
+		resetUserCommonState: state => {
+			resetState(state);
+		}
     },
 	extraReducers: (builder) => {
 		builder
@@ -173,6 +180,6 @@ const adminUserSlice = createSlice({
 	}
 })
 
-export const { resetState } = adminUserSlice.actions;
+export const { resetUserPrivateState, resetUserCommonState } = adminUserSlice.actions;
 
 export default adminUserSlice.reducer;

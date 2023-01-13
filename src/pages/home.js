@@ -16,7 +16,7 @@ const Home = () => {
 	const dispatch = useDispatch();
 
 	const { blogs, metaData, resetData, loading: blogLoading } = useSelector((state) => state.blog);
-
+console.log(blogs)
 	useEffect(() => {
 		dispatch(getBlogs({ page, limit: 10 }));
 
@@ -36,7 +36,9 @@ const Home = () => {
 
 	return (
 		<Grid container>
-			<Grid item lg={2} md={3} sx={{ px: 2, display: { xs: "none", md: 'block' } }}><LeftSidebar /></Grid>
+			<Grid item lg={2} md={3} sx={{ px: 2, display: { xs: "none", md: 'block' } }}>
+				<LeftSidebar />
+			</Grid>
 
 			<Grid item lg={7} md={9} xs={12} sx={{ px: 2.5 }}>
 				<Main
@@ -49,7 +51,9 @@ const Home = () => {
 				/>
 			</Grid>
 			
-			<Grid item lg={3} sx={{ px: 2, display: { xs: "none", lg: 'block' } }}><RightSidebar /></Grid>
+			<Grid item lg={3} sx={{ px: 2, display: { xs: "none", lg: 'block' } }}>
+				<RightSidebar />
+			</Grid>
 		</Grid>
 	);
 };

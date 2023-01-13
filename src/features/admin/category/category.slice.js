@@ -8,10 +8,12 @@ adminTimeOut();
 
 const initialState = {
 	categories: [],
+	categoryMetaData: {},
 	category: null,
 	isError: false,
 	isSuccess: false,
 	isUpdateSuccess: false,
+	isDeleteSuccess: false,
 	isLoading: false,
 	message: ''
 }
@@ -97,23 +99,34 @@ const rejectedState = (state, message) => {
 	state.isError = true;
 	state.isSuccess = false;
 	state.isUpdateSuccess = false;
+	state.isDeleteSuccess = false;
 	state.isLoading = false;
 	state.message = message;
+}
+
+const resetState = state => {
+	state.isError = false;
+	state.isSuccess = false;
+	state.isUpdateSuccess = false;
+	state.isDeleteSuccess = false;
+	state.isLoading = false;
+	state.message = '';
 }
 
 const adminCategorySlice = createSlice({
     name: 'adminCategory',
     initialState,
     reducers: {
-		resetState: state => {
+		resetCategoryCommonState: state => {
+			resetState(state);
+		},
+		resetCategoryState: state => {
+			resetState(state);
+
 			state.categories = [];
-			state.category = null;
-			state.isError = false;
-            state.isSuccess = false;
-            state.isUpdateSuccess = false;
-            state.isLoading = false;
-			state.message = '';
-        }
+			state.categoryMetaData = {};
+			state.category = {};
+		},
     },
 	extraReducers: (builder) => {
 		builder
@@ -133,6 +146,7 @@ const adminCategorySlice = createSlice({
             .addCase(getCategories.fulfilled, (state, action) => {
 				fulfilledState(state);
 				state.categories = action.payload.categories;
+				state.categoryMetaData = action.payload.metaData;
             })
             .addCase(getCategories.rejected, (state, action) => {
                 rejectedState(state, action.payload);
@@ -153,6 +167,7 @@ const adminCategorySlice = createSlice({
             .addCase(updateCategory.fulfilled, (state, action) => {
 				fulfilledState(state);
 				state.categories = state.categories.map(cat => cat._id === action.payload._id ? action.payload : cat);
+				state.isUpdateSuccess = true;
             })
             .addCase(updateCategory.rejected, (state, action) => {
                 rejectedState(state, action.payload);
@@ -163,6 +178,7 @@ const adminCategorySlice = createSlice({
             .addCase(deleteCategory.fulfilled, (state, action) => {
 				fulfilledState(state);
 				state.categories = state.categories.filter(cat => cat._id !== action.payload._id);
+				state.isDeleteSuccess = true;
             })
             .addCase(deleteCategory.rejected, (state, action) => {
                 rejectedState(state, action.payload);
@@ -170,6 +186,6 @@ const adminCategorySlice = createSlice({
 	}
 })
 
-export const { resetState } = adminCategorySlice.actions;
+export const { resetCategoryCommonState, resetCategoryState } = adminCategorySlice.actions;
 
 export default adminCategorySlice.reducer;

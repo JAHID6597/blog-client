@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Blogs = () => {
-	const { blogsByPrivateUser, blogsMetaDataByPrivateUser, isLoading, isUpdateSuccess, isError } = useSelector((state) => state.blog);
+	const { blogsByPrivateUser, blogsMetaDataByPrivateUser, isLoading, isUpdateSuccess, isDeleteSuccess, isError } = useSelector((state) => state.blog);
 
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(5);
@@ -26,14 +26,16 @@ const Blogs = () => {
 	}, [dispatch, limit, page, search]);
 
 	useEffect(() => {
-		if (isUpdateSuccess) toast.success('Successfully updated.');
-		if (isError) toast.error('Something went wrong.');
+		if (isUpdateSuccess) toast.success('Successfully Updated.');
+		if (isDeleteSuccess) toast.success('Successfully Deleted.');
+		if (isError) toast.error('Something Went Wrong.');
 
 		return () => dispatch(resetBlogCommonState());
-	 }, [dispatch, isError, isUpdateSuccess]);
+	 }, [dispatch, isDeleteSuccess, isError, isUpdateSuccess]);
 
 	const handleActiveBlog = rowIndex => {
 		const { isActive, slug } = blogsByPrivateUser[rowIndex];
+		
 		handleUpdate({ isActive: !isActive }, slug);
 	}
 

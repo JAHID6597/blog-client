@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Typography, Container } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { getCategories, resetDataState, resetState } from "../features/category/category.slice";
-import CategoryListCardSkeleton from "../components/skeleton/category-list-card-skeleton";
 import CategoryCard from "../components/cat-tag-card/category-card";
+import CategoryListCardSkeleton from "../components/skeleton/category-list-card-skeleton";
+import { getCategories, resetDataState, resetState } from "../features/category/category.slice";
 
 
 const CategoryList = () => {
-	const { categories, metaData, resetData, isLoading: categoryLoading } = useSelector((state) => state.category);
+	const { categories, metaData, resetData } = useSelector((state) => state.category);
 	
 	const dispatch = useDispatch();
 
@@ -19,9 +19,9 @@ const CategoryList = () => {
 	const [page, setPage] = useState(1);
 	const [skeletonLoading, setSkeletonLoading] = useState(false);
 	const [hasMoreItems, sethasMoreItems] = useState(true);
-console.log(data)
+
 	useEffect(() => {
-		dispatch(getCategories({ page, limit: 12, search: searchParams.get('search') })).then(d => console.log(d));
+		dispatch(getCategories({ page, limit: 12, search: searchParams.get('search') }));
 
 		return () => dispatch(resetState());
 	}, [dispatch, page, searchParams]);
