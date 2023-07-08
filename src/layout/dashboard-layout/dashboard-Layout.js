@@ -9,20 +9,31 @@ import DashboardSidebar from "../../components/dashboard/dashboard-sidebar/dashb
 import Main from "./main";
 import useWindowSize from "../../hook/useWindowSize";
 
-
 const DashboardLayout = ({ type, privateProfile, dashboardMenu, children }) => {
 	const windowSize = useWindowSize();
 	const [open, setOpen] = useState(windowSize.width >= 768);
 	const theme = useTheme();
-	
-	return (
-		<Box sx={{ display: "flex", position: 'relative' }}>
-			<DashboardAppbar open={open} setOpen={setOpen} privateProfile={privateProfile} />
-            <DashboardSidebar open={open} setOpen={setOpen} type={type} dashboardMenu={dashboardMenu} />
 
-			<Main open={open} sx={{ background: '#F4F6FE', minHeight: '100vh' }}>
+	return (
+		<Box sx={{ display: "flex", position: "relative" }}>
+			<DashboardAppbar
+				open={open}
+				setOpen={setOpen}
+				privateProfile={privateProfile}
+			/>
+			<DashboardSidebar
+				open={open}
+				setOpen={setOpen}
+				type={type}
+				dashboardMenu={dashboardMenu}
+			/>
+
+			<Main
+				open={open}
+				sx={{ background: "#F4F6FE", minHeight: "100vh" }}
+			>
 				<DrawerHeader theme={theme} />
-                {children}
+				{children}
 			</Main>
 		</Box>
 	);

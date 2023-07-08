@@ -6,15 +6,18 @@ import { generateUserCounterStatusCardData } from "./utils/generate-user-counter
 
 const UserDashboard = () => {
 	const { privateProfile } = useSelector((state) => state.user);
-	const counterStatusCardItems = generateUserCounterStatusCardData(privateProfile);
+	const counterStatusCardItems =
+		generateUserCounterStatusCardData(privateProfile);
 
 	return (
 		<Grid container spacing={2}>
-			{counterStatusCardItems.map((counterStatusCardItem) =>
+			{counterStatusCardItems.map((counterStatusCardItem) => (
 				<Grid item md={4} sm={6} xs={12} key={counterStatusCardItem.id}>
-					<CounterStatusCard counterStatusCardItem={counterStatusCardItem} />
+					<CounterStatusCard
+						counterStatusCardItem={counterStatusCardItem}
+					/>
 				</Grid>
-			)}
+			))}
 		</Grid>
 	);
 };

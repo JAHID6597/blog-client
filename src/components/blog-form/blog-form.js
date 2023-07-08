@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+	Box,
+	Button,
+	Container,
+	Grid,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { convertToHTML } from "draft-convert";
 import { Editor } from "react-draft-wysiwyg";
 
@@ -9,15 +16,33 @@ import validation from "./validation";
 import Error from "../common/error";
 import InputImage from "../common/input-image/input-image";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories, resetState as resetCategoryState } from "../../features/category/category.slice";
-import { getTags, resetState as resetTagState } from "../../features/tag/tag.slice";
+import {
+	getCategories,
+	resetState as resetCategoryState,
+} from "../../features/category/category.slice";
+import {
+	getTags,
+	resetState as resetTagState,
+} from "../../features/tag/tag.slice";
 import InputCategories from "../common/input-categories";
 
+const BlogForm = ({
+	name,
+	touched,
+	setTouched,
+	errorMessage,
+	setErrorMessage,
+	formData,
+	setFormData,
+	content,
+	setContent,
+	setSubmit,
+	handleSubmit,
+	isLoading,
+}) => {
+	const [tagSearch, setTagSearch] = useState("");
+	const [categorySearch, setCategorySearch] = useState("");
 
-const BlogForm = ({ name, touched, setTouched, errorMessage, setErrorMessage, formData, setFormData, content, setContent, setSubmit, handleSubmit, isLoading }) => {
-	const [tagSearch, setTagSearch] = useState('');
-	const [categorySearch, setCategorySearch] = useState('');
-	
 	const dispatch = useDispatch();
 
 	const { categories } = useSelector((state) => state.category);
@@ -33,7 +58,7 @@ const BlogForm = ({ name, touched, setTouched, errorMessage, setErrorMessage, fo
 		return () => {
 			dispatch(resetCategoryState());
 			dispatch(resetTagState());
-		}
+		};
 	}, [categorySearch, dispatch, tagSearch]);
 
 	useEffect(() => {
@@ -47,7 +72,8 @@ const BlogForm = ({ name, touched, setTouched, errorMessage, setErrorMessage, fo
 
 	const handleBlur = (e) => setTouched({ ...touched, [e.target.name]: true });
 
-	const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+	const handleChange = (e) =>
+		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const handleContentEditorChange = (state) => {
 		setContent(state);
@@ -56,14 +82,36 @@ const BlogForm = ({ name, touched, setTouched, errorMessage, setErrorMessage, fo
 	};
 
 	return (
-		<Box sx={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", background: "#fff" }} >
+		<Box
+			sx={{
+				boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+				background: "#fff",
+			}}
+		>
 			{isLoading && <FullBackdrop isOpenBackDrop={isLoading} />}
 
 			<Container>
-				<Box sx={{ py: { md: 5, xs: 3 }, display: "flex", flexDirection: "column", alignItems: "center" }}>
-					<Typography component="h1" variant="h4" sx={{ textTransform: "uppercase" }}>{name} Blog</Typography>
+				<Box
+					sx={{
+						py: { md: 5, xs: 3 },
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
+					<Typography
+						component="h1"
+						variant="h4"
+						sx={{ textTransform: "uppercase" }}
+					>
+						{name} Blog
+					</Typography>
 
-					<Box component="form" autoComplete="off" onSubmit={handleSubmit} >
+					<Box
+						component="form"
+						autoComplete="off"
+						onSubmit={handleSubmit}
+					>
 						<Box sx={{ mt: { md: 5, xs: 3 } }}>
 							<Grid container spacing={2}>
 								<Grid item xs={12}>
@@ -76,53 +124,82 @@ const BlogForm = ({ name, touched, setTouched, errorMessage, setErrorMessage, fo
 										onBlur={(e) => handleBlur(e)}
 										onChange={(e) => handleChange(e)}
 									/>
-									{ errorMessage.title && <Error message={errorMessage.title} /> }
+									{errorMessage.title && (
+										<Error message={errorMessage.title} />
+									)}
 								</Grid>
 
 								<Grid item xs={12}>
 									<InputTags
-										suggestions={allTags.map(item => item.name)}
+										suggestions={allTags.map(
+											(item) => item.name,
+										)}
 										handleBlur={handleBlur}
 										setFormData={setFormData}
 										formData={formData}
 										setTagSearch={setTagSearch}
 									/>
 
-									{ errorMessage.tags && <Error message={errorMessage.tags} /> }
+									{errorMessage.tags && (
+										<Error message={errorMessage.tags} />
+									)}
 								</Grid>
 
 								<Grid item xs={12}>
 									<InputCategories
-										suggestions={allCategories.map(item => item.name)}
+										suggestions={allCategories.map(
+											(item) => item.name,
+										)}
 										handleBlur={handleBlur}
 										setFormData={setFormData}
 										formData={formData}
 										setCategorySearch={setCategorySearch}
 									/>
 
-									{ errorMessage.categories && <Error message={errorMessage.categories} /> }
+									{errorMessage.categories && (
+										<Error
+											message={errorMessage.categories}
+										/>
+									)}
 								</Grid>
 
 								<Grid item xs={12}>
 									<Editor
 										editorClassName="form-control"
 										editorState={content}
-										onBlur={() => setTouched({ ...touched, content: true })}
-										onEditorStateChange={handleContentEditorChange}
+										onBlur={() =>
+											setTouched({
+												...touched,
+												content: true,
+											})
+										}
+										onEditorStateChange={
+											handleContentEditorChange
+										}
 										editorStyle={{
 											minHeight: "300px",
 											maxHeight: "300px",
 											background: "#fafafa",
-											boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+											boxShadow:
+												"rgba(0, 0, 0, 0.16) 0px 1px 4px",
 										}}
 										toolbar={{
-											options: [ "inline", "blockType", "fontSize", "list", "textAlign", "history" ],
+											options: [
+												"inline",
+												"blockType",
+												"fontSize",
+												"list",
+												"textAlign",
+												"history",
+											],
 											link: { inDropdown: true },
 											history: { inDropdown: true },
 										}}
 									/>
 
-									{ errorMessage.content && <Error message={errorMessage.content} /> }
+									{errorMessage.content && (
+										<Error message={errorMessage.content} />
+									)}
 								</Grid>
 
 								<>
@@ -131,11 +208,20 @@ const BlogForm = ({ name, touched, setTouched, errorMessage, setErrorMessage, fo
 											name="cardImage"
 											title="Choose a card image or Drag it here."
 											type="image"
-											onBlur={() => setTouched({ ...touched, cardImage: true })}
+											onBlur={() =>
+												setTouched({
+													...touched,
+													cardImage: true,
+												})
+											}
 											setFormData={setFormData}
 											formData={formData}
 										/>
-										{ errorMessage.cardImage && <Error message={errorMessage.cardImage} /> }
+										{errorMessage.cardImage && (
+											<Error
+												message={errorMessage.cardImage}
+											/>
+										)}
 									</Grid>
 
 									<Grid item xs={12} sm={8}>
@@ -143,16 +229,36 @@ const BlogForm = ({ name, touched, setTouched, errorMessage, setErrorMessage, fo
 											name="bannerImage"
 											title="Choose a banner image or Drag it here."
 											type="image"
-											onBlur={() => setTouched({ ...touched, bannerImage: true })}
+											onBlur={() =>
+												setTouched({
+													...touched,
+													bannerImage: true,
+												})
+											}
 											setFormData={setFormData}
 											formData={formData}
 										/>
-										{ errorMessage.bannerImage && <Error message={errorMessage.bannerImage} /> }
+										{errorMessage.bannerImage && (
+											<Error
+												message={
+													errorMessage.bannerImage
+												}
+											/>
+										)}
 									</Grid>
 								</>
 							</Grid>
 
-							<Button size="large" type="submit" variant="contained" fullWidth sx={{ mt: 5 }}> {name} </Button>
+							<Button
+								size="large"
+								type="submit"
+								variant="contained"
+								fullWidth
+								sx={{ mt: 5 }}
+							>
+								{" "}
+								{name}{" "}
+							</Button>
 						</Box>
 					</Box>
 				</Box>

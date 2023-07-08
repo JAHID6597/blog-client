@@ -1,9 +1,7 @@
 import decode from "jwt-decode";
 
-
 const authAdminKey = process.env.REACT_APP_AUTH_ADMIN_KEY;
 const admin = JSON.parse(localStorage.getItem(authAdminKey));
-
 
 export const adminTimeOut = () => {
 	if (admin?.accessToken) {
@@ -12,5 +10,3 @@ export const adminTimeOut = () => {
 		}
 	}
 };
-
-

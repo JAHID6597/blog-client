@@ -48,7 +48,7 @@ const ChangePassword = () => {
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 	const { isError, isUpdateSuccess, isLoading, message } = useSelector(
-		(state) => state.user
+		(state) => state.user,
 	);
 
 	useEffect(() => {
@@ -143,9 +143,9 @@ const ChangePassword = () => {
 															onClick={() =>
 																setShowCurrentPassword(
 																	(
-																		showCurrentPassword
+																		showCurrentPassword,
 																	) =>
-																		!showCurrentPassword
+																		!showCurrentPassword,
 																)
 															}
 															edge="end"
@@ -192,9 +192,9 @@ const ChangePassword = () => {
 															onClick={() =>
 																setShowNewPassword(
 																	(
-																		showNewPassword
+																		showNewPassword,
 																	) =>
-																		!showNewPassword
+																		!showNewPassword,
 																)
 															}
 															edge="end"
@@ -241,9 +241,9 @@ const ChangePassword = () => {
 															onClick={() =>
 																setShowConfirmPassword(
 																	(
-																		showConfirmPassword
+																		showConfirmPassword,
 																	) =>
-																		!showConfirmPassword
+																		!showConfirmPassword,
 																)
 															}
 															edge="end"

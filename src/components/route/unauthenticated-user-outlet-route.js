@@ -8,7 +8,7 @@ import {
 
 const UnauthenticatedUserOutletRoute = () => {
 	const { user, privateProfile: userPrivateProfile } = useSelector(
-		(state) => state.user
+		(state) => state.user,
 	);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -18,7 +18,7 @@ const UnauthenticatedUserOutletRoute = () => {
 			dispatch(getPrivateProfile()).then((data) => {
 				if (data.error)
 					localStorage.removeItem(
-						process.env.REACT_APP_AUTH_USER_KEY
+						process.env.REACT_APP_AUTH_USER_KEY,
 					);
 				else navigate("/user/dashboard", { replace: true });
 			});

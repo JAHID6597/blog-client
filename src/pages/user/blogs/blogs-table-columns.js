@@ -1,11 +1,20 @@
 import { Delete, Edit } from "@mui/icons-material";
-import { Button, FormControlLabel, IconButton, Stack, Switch } from "@mui/material";
+import {
+	Button,
+	FormControlLabel,
+	IconButton,
+	Stack,
+	Switch,
+} from "@mui/material";
 import moment from "moment";
 import ButtonItems from "../../../components/common/button-items";
 import LinkTo from "../../../components/common/link-to";
 
-
-const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDeleteBlog) => [
+const blogsTableColumns = (
+	navigateToBlogUpdatePage,
+	handleActiveBlog,
+	handleDeleteBlog,
+) => [
 	{
 		name: "title",
 		label: "Title",
@@ -20,7 +29,9 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => <ButtonItems items={value} />,
+			customBodyRender: (value, tableMeta, updateValue) => (
+				<ButtonItems items={value} />
+			),
 		},
 	},
 	{
@@ -29,7 +40,9 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => <ButtonItems items={value} />,
+			customBodyRender: (value, tableMeta, updateValue) => (
+				<ButtonItems items={value} />
+			),
 		},
 	},
 	{
@@ -38,7 +51,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => value?.length ,
+			customBodyRender: (value, tableMeta, updateValue) => value?.length,
 		},
 	},
 	{
@@ -47,7 +60,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => value?.length ,
+			customBodyRender: (value, tableMeta, updateValue) => value?.length,
 		},
 	},
 	{
@@ -56,7 +69,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => value?.length ,
+			customBodyRender: (value, tableMeta, updateValue) => value?.length,
 		},
 	},
 	{
@@ -65,7 +78,8 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+			customBodyRender: (value, tableMeta, updateValue) =>
+				moment(value, "YYYYMMDD").fromNow(),
 		},
 	},
 	{
@@ -74,7 +88,8 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+			customBodyRender: (value, tableMeta, updateValue) =>
+				moment(value, "YYYYMMDD").fromNow(),
 		},
 	},
 	{
@@ -83,18 +98,21 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) =>
+			customBodyRender: (value, tableMeta, updateValue) => (
 				<FormControlLabel
-					sx={{ display: 'block' }}
-        			control={
-          				<Switch
-            				checked={value}
-							onChange={() => handleActiveBlog(tableMeta.rowIndex)}
-            				name="isActive"
-            				color="success"
-          				/>
-        			}
-      			/>
+					sx={{ display: "block" }}
+					control={
+						<Switch
+							checked={value}
+							onChange={() =>
+								handleActiveBlog(tableMeta.rowIndex)
+							}
+							name="isActive"
+							color="success"
+						/>
+					}
+				/>
+			),
 		},
 	},
 	{
@@ -103,7 +121,7 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) =>
+			customBodyRender: (value, tableMeta, updateValue) => (
 				<Button
 					as={LinkTo}
 					to={`/blog/${value}`}
@@ -114,7 +132,8 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 					disableElevation
 				>
 					visit this blog
-				</Button>,
+				</Button>
+			),
 		},
 	},
 	{
@@ -123,10 +142,26 @@ const blogsTableColumns = (navigateToBlogUpdatePage, handleActiveBlog, handleDel
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => <Stack direction="row" spacing={1} sx={{ justifyContent: 'center' }}>
-				<IconButton onClick={() => navigateToBlogUpdatePage(tableMeta.rowIndex)}><Edit /></IconButton>
-				<IconButton onClick={() => handleDeleteBlog(tableMeta.rowIndex)}><Delete /></IconButton>
-			</Stack>,
+			customBodyRender: (value, tableMeta, updateValue) => (
+				<Stack
+					direction="row"
+					spacing={1}
+					sx={{ justifyContent: "center" }}
+				>
+					<IconButton
+						onClick={() =>
+							navigateToBlogUpdatePage(tableMeta.rowIndex)
+						}
+					>
+						<Edit />
+					</IconButton>
+					<IconButton
+						onClick={() => handleDeleteBlog(tableMeta.rowIndex)}
+					>
+						<Delete />
+					</IconButton>
+				</Stack>
+			),
 		},
 	},
 ];

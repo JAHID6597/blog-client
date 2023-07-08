@@ -7,16 +7,35 @@ import Main from "../components/home/main/main";
 import Comments from "../components/user-profile/main/comments";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPublicProfile, resetDataState as resetUserDataState, resetUserPublicState } from "../features/user/user.slice";
-import { getCommentsByPublicUser, getBlogsByPublicUser, resetDataState, resetUserBlogState } from "../features/blog/blog.slice";
+import {
+	getPublicProfile,
+	resetDataState as resetUserDataState,
+	resetUserPublicState,
+} from "../features/user/user.slice";
+import {
+	getCommentsByPublicUser,
+	getBlogsByPublicUser,
+	resetDataState,
+	resetUserBlogState,
+} from "../features/blog/blog.slice";
 import { resetPageLayoutPadding } from "../features/common/common.slice";
-
 
 const UserProfile = () => {
 	const { userName } = useParams();
 
-	const { isError, publicProfile, publicUserComments, publicUserCommentsMetaData, resetData: resetUserData } = useSelector((state) => state.user);
-	const { blogsByPublicUser, blogsMetaDataByPublicUser, resetData, loading: blogLoading } = useSelector((state) => state.blog);
+	const {
+		isError,
+		publicProfile,
+		publicUserComments,
+		publicUserCommentsMetaData,
+		resetData: resetUserData,
+	} = useSelector((state) => state.user);
+	const {
+		blogsByPublicUser,
+		blogsMetaDataByPublicUser,
+		resetData,
+		loading: blogLoading,
+	} = useSelector((state) => state.blog);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [page, setPage] = useState(1);
@@ -29,39 +48,55 @@ const UserProfile = () => {
 	}, [dispatch, userName]);
 
 	useEffect(() => {
-		if (userName) dispatch(getBlogsByPublicUser({ userName, page, limit: 5, search: '' }));
+		if (userName)
+			dispatch(
+				getBlogsByPublicUser({ userName, page, limit: 5, search: "" }),
+			);
 
 		return () => dispatch(resetUserBlogState());
 	}, [dispatch, page, userName]);
 
 	useEffect(() => {
-		if (userName) dispatch(getCommentsByPublicUser({ userName, page: commentPage, limit: 5, search: '' }));
+		if (userName)
+			dispatch(
+				getCommentsByPublicUser({
+					userName,
+					page: commentPage,
+					limit: 5,
+					search: "",
+				}),
+			);
 
 		return () => dispatch(resetUserBlogState());
 	}, [dispatch, commentPage, userName]);
 
-	useEffect(() => { 
-		if (isError) navigate('/404', { replace: true });
+	useEffect(() => {
+		if (isError) navigate("/404", { replace: true });
 
 		return () => dispatch(resetUserPublicState());
-	}, [dispatch, isError, navigate])
+	}, [dispatch, isError, navigate]);
 
 	useEffect(() => {
 		dispatch(resetPageLayoutPadding(true));
 
 		return () => dispatch(resetPageLayoutPadding(false));
-	}, [dispatch])
+	}, [dispatch]);
 
 	return (
 		<>
-			<Box sx={{ height: '160px', background: publicProfile?.favouriteColor }} />
+			<Box
+				sx={{
+					height: "160px",
+					background: publicProfile?.favouriteColor,
+				}}
+			/>
 
 			<Container>
-				<Box sx={{ marginTop: '-80px'}}>
+				<Box sx={{ marginTop: "-80px" }}>
 					<UserProfileCard />
 				</Box>
-			
-				<Grid container sx={{ py: 2, height: '100%' }} spacing={2}>
+
+				<Grid container sx={{ py: 2, height: "100%" }} spacing={2}>
 					<Grid item md={4} xs={12}>
 						<LeftSidebar />
 					</Grid>
@@ -72,11 +107,11 @@ const UserProfile = () => {
 							metaData={blogsMetaDataByPublicUser}
 							resetData={resetData}
 							isLoading={blogLoading}
-							setPage={setPage} 
+							setPage={setPage}
 							resetDataState={resetDataState}
 						/>
 
-						{publicUserComments?.length ?
+						{publicUserComments?.length ? (
 							<Comments
 								title="Comments"
 								allComments={publicUserComments}
@@ -84,12 +119,12 @@ const UserProfile = () => {
 								resetData={resetUserData}
 								resetDataState={resetUserDataState}
 								setPage={setCommentPage}
-							/> :
-							''
-						}
+							/>
+						) : (
+							""
+						)}
 					</Grid>
 				</Grid>
-
 			</Container>
 		</>
 	);

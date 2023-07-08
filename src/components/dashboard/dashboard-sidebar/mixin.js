@@ -4,21 +4,21 @@ export const openedMixin = (theme, drawerwidth) => ({
 
 	transition: theme.transitions.create("width", {
 		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.enteringScreen
-	})
+		duration: theme.transitions.duration.enteringScreen,
+	}),
 });
 
-export const closedMixin = theme => ({
+export const closedMixin = (theme) => ({
 	overflowX: "hidden",
 	width: 0,
 	zIndex: 0,
 
 	transition: theme.transitions.create("width", {
 		easing: theme.transitions.easing.sharp,
-		duration: theme.transitions.duration.leavingScreen
+		duration: theme.transitions.duration.leavingScreen,
 	}),
 
 	[theme.breakpoints.up("md")]: {
-		width: `calc(${theme.spacing(9)} + 1px)`
-	}
+		width: `calc(${theme.spacing(9)} + 1px)`,
+	},
 });

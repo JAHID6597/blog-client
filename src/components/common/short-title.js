@@ -3,7 +3,9 @@ import { Typography } from "@mui/material";
 
 const ShortTitle = ({ title }) => {
 	return (
-		<Typography variant="h3" sx={{ fontSize: 18, fontWeight: "bold" }}>{title}</Typography>
+		<Typography variant="h3" sx={{ fontSize: 18, fontWeight: "bold" }}>
+			{title}
+		</Typography>
 	);
 };
 

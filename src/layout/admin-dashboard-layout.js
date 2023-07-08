@@ -6,7 +6,11 @@ const AdminDashboardLayout = ({ privateProfile, children }) => {
 	const adminDashboardMenu = generateAdminDashboardMenu();
 
 	return (
-		<DashboardLayout type="admin" privateProfile={privateProfile} dashboardMenu={adminDashboardMenu}>
+		<DashboardLayout
+			type="admin"
+			privateProfile={privateProfile}
+			dashboardMenu={adminDashboardMenu}
+		>
 			{children}
 		</DashboardLayout>
 	);

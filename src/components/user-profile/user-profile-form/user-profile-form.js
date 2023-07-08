@@ -2,12 +2,17 @@ import { Box } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPublicProfile, resetState } from "../../../features/user/user.slice";
+import {
+	getPublicProfile,
+	resetState,
+} from "../../../features/user/user.slice";
 import FullBackdrop from "../../common/FullBackdrop";
 
 const UserProfileForm = () => {
 	const { userName } = useParams();
-	const { user, privateProfile, isLoading } = useSelector(state => state.user);
+	const { user, privateProfile, isLoading } = useSelector(
+		(state) => state.user,
+	);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -15,7 +20,7 @@ const UserProfileForm = () => {
 		if (userName) dispatch(getPublicProfile());
 
 		return () => dispatch(resetState());
-	}, [dispatch, userName])
+	}, [dispatch, userName]);
 
 	return (
 		<Box
@@ -88,9 +93,13 @@ const UserProfileForm = () => {
 											onChange={(e) =>
 												setFormData({
 													...formData,
-													categories: typeof e.target.value === "string"
-														? e.target.value.split(",")
-														: e.target.value
+													categories:
+														typeof e.target
+															.value === "string"
+															? e.target.value.split(
+																	",",
+															  )
+															: e.target.value,
 												})
 											}
 											input={
@@ -122,7 +131,7 @@ const UserProfileForm = () => {
 													<Checkbox
 														checked={
 															formData.categories.indexOf(
-																category
+																category,
 															) > -1
 														}
 													/>
@@ -134,8 +143,12 @@ const UserProfileForm = () => {
 										</Select>
 
 										{errorMessage.categories && (
-										<Error message={errorMessage.categories} />
-									)}
+											<Error
+												message={
+													errorMessage.categories
+												}
+											/>
+										)}
 									</FormControl>
 								</Grid>
 

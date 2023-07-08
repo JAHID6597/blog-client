@@ -1,6 +1,5 @@
 import { createTheme } from "@mui/material";
 
-
 const muiDataTableTheme = createTheme({
 	components: {
 		MUIDataTableHeadCell: {
@@ -8,20 +7,19 @@ const muiDataTableTheme = createTheme({
 				root: {
 					backgroundColor: "#EAEDED",
 					fontWeight: "bold",
-					minWidth: '200px',
-					textAlign: 'center',
-					
+					minWidth: "200px",
+					textAlign: "center",
 				},
 				contentWrapper: {
-					justifyContent: 'center'
-				}
+					justifyContent: "center",
+				},
 			},
 		},
 		MuiButton: {
 			styleOverrides: {
 				root: {
 					fontWeight: "bold",
-					margin: 'auto'
+					margin: "auto",
 				},
 			},
 		},
@@ -40,18 +38,18 @@ const muiDataTableTheme = createTheme({
 		MUIDataTableBodyCell: {
 			styleOverrides: {
 				root: {
-					textAlign: 'center'
+					textAlign: "center",
 				},
 			},
 		},
 		MUITableCell: {
 			styleOverrides: {
 				root: {
-					textAlign: 'center',
-					margin: 'auto'
+					textAlign: "center",
+					margin: "auto",
 				},
 			},
-		}
+		},
 	},
 });
 

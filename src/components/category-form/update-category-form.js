@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const UpdateCategoryForm = () => {
-  return (
-	<div>UpdateCategoryForm</div>
-  )
-}
+	return <div>UpdateCategoryForm</div>;
+};
 
-export default UpdateCategoryForm
+export default UpdateCategoryForm;

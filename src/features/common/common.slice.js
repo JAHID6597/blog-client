@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	currentPublicUserInfoTabItem: 0,
 	isPageLayoutPadding: false,
-	userDashboardBackground: '',
-}
+	userDashboardBackground: "",
+};
 
 const commonSlice = createSlice({
-	name: 'common',
+	name: "common",
 	initialState,
 	reducers: {
 		resetPublicUserInfoTabItemState: (state, action) => {
@@ -15,10 +15,11 @@ const commonSlice = createSlice({
 		},
 		resetPageLayoutPadding: (state, action) => {
 			state.isPageLayoutPadding = action.payload;
-		}
-	}
+		},
+	},
 });
 
-export const { resetPublicUserInfoTabItemState, resetPageLayoutPadding } = commonSlice.actions;
+export const { resetPublicUserInfoTabItemState, resetPageLayoutPadding } =
+	commonSlice.actions;
 
 export default commonSlice.reducer;

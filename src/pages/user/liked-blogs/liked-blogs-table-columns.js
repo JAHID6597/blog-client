@@ -3,7 +3,6 @@ import moment from "moment";
 import ButtonItems from "../../../components/common/button-items";
 import LinkTo from "../../../components/common/link-to";
 
-
 const likedBlogsTableColumns = (unLikeBlog) => [
 	{
 		name: "blog.title",
@@ -19,7 +18,9 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => <ButtonItems items={value} />,
+			customBodyRender: (value, tableMeta, updateValue) => (
+				<ButtonItems items={value} />
+			),
 		},
 	},
 	{
@@ -28,7 +29,9 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => <ButtonItems items={value} />,
+			customBodyRender: (value, tableMeta, updateValue) => (
+				<ButtonItems items={value} />
+			),
 		},
 	},
 	{
@@ -37,7 +40,7 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => value?.length ,
+			customBodyRender: (value, tableMeta, updateValue) => value?.length,
 		},
 	},
 	{
@@ -46,7 +49,7 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => value?.length ,
+			customBodyRender: (value, tableMeta, updateValue) => value?.length,
 		},
 	},
 	{
@@ -55,7 +58,7 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => value?.length ,
+			customBodyRender: (value, tableMeta, updateValue) => value?.length,
 		},
 	},
 	{
@@ -64,7 +67,8 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+			customBodyRender: (value, tableMeta, updateValue) =>
+				moment(value, "YYYYMMDD").fromNow(),
 		},
 	},
 	{
@@ -73,7 +77,8 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+			customBodyRender: (value, tableMeta, updateValue) =>
+				moment(value, "YYYYMMDD").fromNow(),
 		},
 	},
 	{
@@ -82,7 +87,8 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+			customBodyRender: (value, tableMeta, updateValue) =>
+				moment(value, "YYYYMMDD").fromNow(),
 		},
 	},
 	{
@@ -91,7 +97,7 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) =>
+			customBodyRender: (value, tableMeta, updateValue) => (
 				<Button
 					as={LinkTo}
 					to={`/blog/${value}`}
@@ -102,7 +108,8 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 					disableElevation
 				>
 					visit this blog
-				</Button>,
+				</Button>
+			),
 		},
 	},
 	{
@@ -111,7 +118,7 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) =>
+			customBodyRender: (value, tableMeta, updateValue) => (
 				<Button
 					onClick={() => unLikeBlog(tableMeta.rowIndex)}
 					variant="contained"
@@ -122,6 +129,7 @@ const likedBlogsTableColumns = (unLikeBlog) => [
 				>
 					unlike
 				</Button>
+			),
 		},
 	},
 ];

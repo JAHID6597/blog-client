@@ -10,9 +10,19 @@ import validation from "./validation";
 const CreateCategoryForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { isError, isUpdateSuccess, isLoading, message } = useSelector((state) => state.adminCategory);
-	const [touched, setTouched] = useState({ name: false, description: false, image: false });
-	const [formData, setFormData] = useState({ name: "", description: "", image: "" });
+	const { isError, isUpdateSuccess, isLoading, message } = useSelector(
+		(state) => state.adminCategory,
+	);
+	const [touched, setTouched] = useState({
+		name: false,
+		description: false,
+		image: false,
+	});
+	const [formData, setFormData] = useState({
+		name: "",
+		description: "",
+		image: "",
+	});
 
 	const [errorMessage, setErrorMessage] = useState({});
 	const [isSubmit, setSubmit] = useState(false);
@@ -32,8 +42,7 @@ const CreateCategoryForm = () => {
 
 		console.log(formData);
 
-		if (isSubmit)
-			dispatch(createCategory(formData));
+		if (isSubmit) dispatch(createCategory(formData));
 	};
 
 	return (

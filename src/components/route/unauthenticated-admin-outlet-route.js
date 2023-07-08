@@ -8,7 +8,7 @@ import {
 
 const UnauthenticatedAdminOutletRoute = () => {
 	const { admin, privateProfile: adminPrivateProfile } = useSelector(
-		(state) => state.admin
+		(state) => state.admin,
 	);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -18,7 +18,7 @@ const UnauthenticatedAdminOutletRoute = () => {
 			dispatch(getPrivateProfile()).then((data) => {
 				if (data.error)
 					localStorage.removeItem(
-						process.env.REACT_APP_AUTH_ADMIN_KEY
+						process.env.REACT_APP_AUTH_ADMIN_KEY,
 					);
 				else navigate("/admin/dashboard", { replace: true });
 			});

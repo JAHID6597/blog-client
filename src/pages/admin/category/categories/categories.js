@@ -3,13 +3,25 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import options from "../../../../config/table/options.config";
 import { useNavigate } from "react-router-dom";
-import { deleteCategory, getCategories, resetCategoryCommonState, resetCategoryState } from "../../../../features/admin/category/category.slice";
+import {
+	deleteCategory,
+	getCategories,
+	resetCategoryCommonState,
+	resetCategoryState,
+} from "../../../../features/admin/category/category.slice";
 import MuiDataTableLayout from "../../../../layout/mui-data-table-layout";
 import categoryTableColumns from "./category-table-columns";
 import { toast } from "react-toastify";
 
 const Categories = () => {
-	const { categories, categoryMetaData, isLoading, isUpdateSuccess, isDeleteSuccess, isError } = useSelector((state) => state.adminCategory);
+	const {
+		categories,
+		categoryMetaData,
+		isLoading,
+		isUpdateSuccess,
+		isDeleteSuccess,
+		isError,
+	} = useSelector((state) => state.adminCategory);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -19,12 +31,12 @@ const Categories = () => {
 	const [search, setSearch] = useState("");
 
 	useEffect(() => {
-		if (isUpdateSuccess) toast.success('Successfully Updated.');
-		if (isDeleteSuccess) toast.success('Successfully Deleted.');
-		if (isError) toast.error('Something Went Wrong.');
+		if (isUpdateSuccess) toast.success("Successfully Updated.");
+		if (isDeleteSuccess) toast.success("Successfully Deleted.");
+		if (isError) toast.error("Something Went Wrong.");
 
 		return () => dispatch(resetCategoryCommonState());
-	 }, [dispatch, isDeleteSuccess, isError, isUpdateSuccess]);
+	}, [dispatch, isDeleteSuccess, isError, isUpdateSuccess]);
 
 	useEffect(() => {
 		dispatch(getCategories({ page, limit, search }));
@@ -41,8 +53,20 @@ const Categories = () => {
 			<MUIDataTable
 				title="Categories"
 				data={categories}
-				columns={categoryTableColumns(categories, navigate, handleDeleteCategory)}
-				options={options(page, setPage, limit, setLimit, setSearch, isLoading, categoryMetaData)}
+				columns={categoryTableColumns(
+					categories,
+					navigate,
+					handleDeleteCategory,
+				)}
+				options={options(
+					page,
+					setPage,
+					limit,
+					setLimit,
+					setSearch,
+					isLoading,
+					categoryMetaData,
+				)}
 			/>
 		</MuiDataTableLayout>
 	);

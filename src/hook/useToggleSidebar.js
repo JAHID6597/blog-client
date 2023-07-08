@@ -7,7 +7,12 @@ const useToggleSidebar = () => {
 	const [toggleSideBar, setToggleSideBar] = useState(false);
 
 	const toggleDrawer = (action) => (event) => {
-		if (event &&event.type === "keydown" &&(event.key === "Tab" || event.key === "Shift")) return;
+		if (
+			event &&
+			event.type === "keydown" &&
+			(event.key === "Tab" || event.key === "Shift")
+		)
+			return;
 
 		setToggleSideBar(action);
 	};

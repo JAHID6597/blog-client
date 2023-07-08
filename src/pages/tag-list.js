@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Typography, Container } from "@mui/material";
+import { Box, Grid, Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getTags, resetDataState, resetState } from "../features/tag/tag.slice";
 import TagCard from "../components/cat-tag-card/tag-card";
 import TagListCardSkeleton from "../components/skeleton/tag-list-card-skeleton";
 
-
 const TagList = () => {
-	const { tags, metaData, resetData, isLoading: tagLoading } = useSelector((state) => state.tag);
-	
+	const { tags, metaData, resetData } = useSelector((state) => state.tag);
+
 	const dispatch = useDispatch();
 
 	const [searchParams] = useSearchParams();
@@ -21,7 +20,9 @@ const TagList = () => {
 	const [hasMoreItems, sethasMoreItems] = useState(true);
 
 	useEffect(() => {
-		dispatch(getTags({ page, limit: 12, search: searchParams.get('search') })).then(d => console.log(d));
+		dispatch(
+			getTags({ page, limit: 12, search: searchParams.get("search") }),
+		).then((d) => console.log(d));
 
 		return () => dispatch(resetState());
 	}, [dispatch, page, searchParams]);
@@ -30,20 +31,19 @@ const TagList = () => {
 		if (resetData) {
 			setData([]);
 			dispatch(resetDataState(false));
-		}
-		else setData(prevData => [...prevData, ...tags]);
-	}, [tags, dispatch, resetData])
+		} else setData((prevData) => [...prevData, ...tags]);
+	}, [tags, dispatch, resetData]);
 
 	useEffect(() => {
 		setSkeletonLoading(data.length > 0);
 
 		if (metaData.total <= data.length) sethasMoreItems(false);
-	}, [data.length, metaData.total])
+	}, [data.length, metaData.total]);
 
 	const fetchTags = () => {
 		if (metaData.total <= data.length) sethasMoreItems(false);
-		else setPage(page => page + 1);
-	}
+		else setPage((page) => page + 1);
+	};
 
 	return (
 		<Container maxWidth="xl">
@@ -52,11 +52,17 @@ const TagList = () => {
 					dataLength={data.length}
 					next={fetchTags}
 					hasMore={hasMoreItems}
-					loader={<TagListCardSkeleton skeletonLoading={skeletonLoading} />}
-					style={{ overflow: 'hidden' }}
+					loader={
+						<TagListCardSkeleton
+							skeletonLoading={skeletonLoading}
+						/>
+					}
+					style={{ overflow: "hidden" }}
 				>
 					<Grid container spacing={2}>
-						{data.map((tag) => <TagCard tag={tag} />)}
+						{data.map((tag) => (
+							<TagCard tag={tag} />
+						))}
 					</Grid>
 				</InfiniteScroll>
 			</Box>

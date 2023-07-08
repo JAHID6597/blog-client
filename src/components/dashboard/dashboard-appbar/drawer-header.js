@@ -6,7 +6,7 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
 	alignItems: "center",
 	padding: theme.spacing(0, 1, 0, 2),
 	...theme.mixins.toolbar,
-	justifyContent: "space-between"
+	justifyContent: "space-between",
 }));
 
 export default DrawerHeader;

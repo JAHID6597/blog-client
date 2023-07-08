@@ -1,4 +1,4 @@
-const getGridItemArr = data => {
+const getGridItemArr = (data) => {
 	const gridItem = [];
 
 	for (let i = 0; i < data.length; i++) {
@@ -7,6 +7,6 @@ const getGridItemArr = data => {
 	}
 
 	return gridItem;
-}
+};
 
 export default getGridItemArr;

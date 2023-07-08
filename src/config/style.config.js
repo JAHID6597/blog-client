@@ -6,4 +6,4 @@ export const adminDashboardIconColor = "#dedede";
 export const adminDashboardTextColor = "#dedede";
 export const adminDashboardSidebarBackgroundColor = "#18191A";
 
-export const dashboarddrawerwidth = '280px';
+export const dashboarddrawerwidth = "280px";

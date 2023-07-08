@@ -11,7 +11,10 @@ const NavDrawer = ({ toggleSideBar, setToggleSideBar, toggleDrawer }) => {
 			onClose={toggleDrawer(false)}
 			onOpen={toggleDrawer(true)}
 		>
-			<SideBar setToggleSideBar={setToggleSideBar} toggleDrawer={toggleDrawer} />
+			<SideBar
+				setToggleSideBar={setToggleSideBar}
+				toggleDrawer={toggleDrawer}
+			/>
 		</SwipeableDrawer>
 	);
 };

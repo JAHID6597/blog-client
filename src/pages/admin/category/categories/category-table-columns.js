@@ -50,7 +50,7 @@ const categoryTableColumns = (categories, navigate, handleDeleteCategory) => [
 					sx={{
 						backgroundColor: value,
 						height: 25,
-						width: '100%',
+						width: "100%",
 					}}
 				/>
 			),
@@ -76,7 +76,7 @@ const categoryTableColumns = (categories, navigate, handleDeleteCategory) => [
 					<IconButton
 						onClick={() =>
 							navigate(
-								`/admin/category/${categories[idx].slug}/update`
+								`/admin/category/${categories[idx].slug}/update`,
 							)
 						}
 					>
@@ -99,7 +99,7 @@ const categoryTableColumns = (categories, navigate, handleDeleteCategory) => [
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) =>
+			customBodyRender: (value, tableMeta, updateValue) => (
 				<Button
 					as={LinkTo}
 					to={`/category/${value}`}
@@ -110,7 +110,8 @@ const categoryTableColumns = (categories, navigate, handleDeleteCategory) => [
 					disableElevation
 				>
 					visit category
-				</Button>,
+				</Button>
+			),
 		},
 	},
 ];

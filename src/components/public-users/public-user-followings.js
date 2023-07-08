@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { Box, Grid } from "@mui/material";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch } from "react-redux";
-import { Box, Grid, Typography } from "@mui/material";
-import PublicUserCard from "./public-user-card";
 import PublicUserCardSkeleton from "../skeleton/public-user-card-skeleton";
+import PublicUserCard from "./public-user-card";
 
-const PublicUserFollowings = ({ users, metaData, setPage, resetData, resetDataState }) => {
+const PublicUserFollowings = ({
+	users,
+	metaData,
+	setPage,
+	resetData,
+	resetDataState,
+}) => {
 	const [data, setData] = useState([]);
 	const [skeletonLoading, setSkeletonLoading] = useState(false);
 
@@ -16,21 +22,20 @@ const PublicUserFollowings = ({ users, metaData, setPage, resetData, resetDataSt
 	useEffect(() => {
 		if (resetData) {
 			setData([]);
-			dispatch(resetDataState(false))
-		}
-		else setData(prevData => [...prevData, ...users]);
-	}, [users, dispatch, resetData, resetDataState])
+			dispatch(resetDataState(false));
+		} else setData((prevData) => [...prevData, ...users]);
+	}, [users, dispatch, resetData, resetDataState]);
 
 	useEffect(() => {
 		setSkeletonLoading(data.length > 0);
 
 		if (metaData.total <= data.length) sethasMoreItems(false);
-	}, [data.length, metaData.total])
+	}, [data.length, metaData.total]);
 
 	const fetchComments = () => {
 		if (metaData.total <= data.length) sethasMoreItems(false);
-		else setPage(page => page + 1);
-	}
+		else setPage((page) => page + 1);
+	};
 
 	return (
 		<Box alignItems="stretch">
@@ -38,14 +43,14 @@ const PublicUserFollowings = ({ users, metaData, setPage, resetData, resetDataSt
 				dataLength={data.length}
 				next={fetchComments}
 				hasMore={hasMoreItems}
-				loader={<PublicUserCardSkeleton skeletonLoading={skeletonLoading} />}
+				loader={
+					<PublicUserCardSkeleton skeletonLoading={skeletonLoading} />
+				}
 			>
 				<Grid container spacing={2}>
-					{data.map((item) =>
-						<PublicUserCard
-							key={item._id}
-							user={item.following}
-						/>)}
+					{data.map((item) => (
+						<PublicUserCard key={item._id} user={item.following} />
+					))}
 				</Grid>
 			</InfiniteScroll>
 		</Box>

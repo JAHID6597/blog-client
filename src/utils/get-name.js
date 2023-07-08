@@ -5,8 +5,7 @@ const getName = (user) => {
 		name += user?.firstName;
 
 		if (user?.lastName) name += " " + user?.lastName;
-	}
-	else name += user?.userName || "";
+	} else name += user?.userName || "";
 
 	return name;
 };

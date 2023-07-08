@@ -1,4 +1,16 @@
-import { Bookmark, Comment, Details, Edit, GroupAdd, GroupAddOutlined, Lock, Pages, SaveAs, Settings, ThumbUp } from "@mui/icons-material";
+import {
+	Bookmark,
+	Comment,
+	Details,
+	Edit,
+	GroupAdd,
+	GroupAddOutlined,
+	Lock,
+	Pages,
+	SaveAs,
+	Settings,
+	ThumbUp,
+} from "@mui/icons-material";
 import { userDashboardIconColor } from "../../config/style.config";
 
 export const generateUserDashboardMenu = () => [
@@ -19,8 +31,8 @@ export const generateUserDashboardMenu = () => [
 				title: "Change Password",
 				icon: <Lock sx={{ color: userDashboardIconColor }} />,
 				url: "/user/password/change",
-			}
-		]
+			},
+		],
 	},
 	{
 		id: "udm2",
@@ -39,41 +51,42 @@ export const generateUserDashboardMenu = () => [
 				title: "Create A New Blog",
 				icon: <SaveAs sx={{ color: userDashboardIconColor }} />,
 				url: "/user/blog/create",
-			}
-		]
+			},
+		],
 	},
 	{
 		id: "udm3",
 		title: "Comment",
 		icon: <Comment sx={{ color: userDashboardIconColor }} />,
 		url: "/user/comments",
-		children: []
+		children: [],
 	},
 	{
 		id: "udm4",
 		title: "Liked Blogs",
 		icon: <ThumbUp sx={{ color: userDashboardIconColor }} />,
 		url: "/user/liked-blogs",
-		children: []
+		children: [],
 	},
 	{
 		id: "udm5",
 		title: "Bookmarked Blogs",
 		icon: <Bookmark sx={{ color: userDashboardIconColor }} />,
 		url: "/user/bookmarked-blogs",
-		children: []
+		children: [],
 	},
 	{
 		id: "udm6",
 		title: "Followers",
 		icon: <GroupAddOutlined sx={{ color: userDashboardIconColor }} />,
 		url: "/user/followers",
-		children: []
-	},{
+		children: [],
+	},
+	{
 		id: "udm7",
 		title: "Followings",
 		icon: <GroupAdd sx={{ color: userDashboardIconColor }} />,
 		url: "/user/followings",
-		children: []
-	}
-]
+		children: [],
+	},
+];

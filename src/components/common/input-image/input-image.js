@@ -4,18 +4,27 @@ import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import DisplayInputImage from "./display-input-image";
 import SelectInputImage from "./select-input-image";
+import Error from "../error";
 
-const InputImage = ({ name='file', title, type="image", setFormData, formData, ...others }) => {
+const InputImage = ({
+	name = "file",
+	title,
+	type = "image",
+	setFormData,
+	formData,
+	...others
+}) => {
 	const [image, setImage] = useState();
 	const [error, setError] = useState();
 
 	useEffect(() => {
 		setImage(formData[`${name}`]);
-	}, [formData, name])
+	}, [formData, name]);
 
 	const onDrop = (accepted, rejected) => {
-		if (Object.keys(rejected).length) setError(`Please select a valid ${type}.`);
-		else {
+		if (Object.keys(rejected).length) {
+			setError(`Please select a valid ${type}.`);
+		} else {
 			const blobPromise = new Promise((resolve, reject) => {
 				const reader = new window.FileReader();
 				reader.readAsDataURL(accepted[0]);
@@ -24,20 +33,28 @@ const InputImage = ({ name='file', title, type="image", setFormData, formData, .
 					resolve(base64data);
 				};
 			});
+
 			blobPromise.then((value) => {
 				setImage(value);
-				setFormData({ ...formData, [`${name}`]: value })
+				setFormData({ ...formData, [`${name}`]: value });
+
+				setError("");
 			});
+
+			blobPromise.catch((err) => setError(err));
 		}
 	};
 
 	const accept = {
-		'image/png': ['.png'],
-		'image/jpg': ['.jpg'],
-		'image/jpeg': ['.jpeg'],
+		"image/png": [".png"],
+		"image/jpg": [".jpg"],
+		"image/jpeg": [".jpeg"],
 	};
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept });
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop,
+		accept,
+	});
 
 	return (
 		<Box {...others}>
@@ -60,6 +77,8 @@ const InputImage = ({ name='file', title, type="image", setFormData, formData, .
 					title={title}
 				/>
 			)}
+
+			{error && <Error message={String(error)} />}
 		</Box>
 	);
 };

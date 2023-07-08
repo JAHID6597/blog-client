@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import ScrollToTop from "./components/common/scroll-to-top";
 
 import Home from "./pages/home";
@@ -50,7 +50,6 @@ import BookmarkedBlogsDetails from "./pages/user/bookmarked-blogs/bookmarked-blo
 import FollowersDetails from "./pages/user/follow/followers-details";
 import FollowingsDetails from "./pages/user/follow/followings-details";
 
-
 const App = () => {
 	return (
 		<BrowserRouter>
@@ -59,60 +58,117 @@ const App = () => {
 			<Routes>
 				<Route path="/" element={<PageLayout />}>
 					<Route index element={<Home />} />
-					
+
 					<Route path="/search" element={<Search />} />
 					<Route path="/categories" element={<CategoryList />} />
-					<Route path="/category/:slug" element={<SingleCategoryBlogs />} />
+					<Route
+						path="/category/:slug"
+						element={<SingleCategoryBlogs />}
+					/>
 					<Route path="/tags" element={<TagList />} />
 					<Route path="/tag/:slug" element={<SingleTagBlogs />} />
 
 					<Route path="/user/:userName" element={<UserProfile />} />
 
 					<Route element={<PublicUserInfoLayout />}>
-						<Route path="/user/:userName/all-blogs" element={<AllBlogs />} />
-						<Route path="/user/:userName/liked-blogs" element={<LikedBlogs />} />
-						<Route path="/user/:userName/bookmarked-blogs" element={<BookmarkedBlogs />} />
-						<Route path="/user/:userName/comments" element={<Comments />} />
-						<Route path="/user/:userName/followers" element={<FollowerUsers />} />
-						<Route path="/user/:userName/Followings" element={<FollowingUsers />} />
+						<Route
+							path="/user/:userName/all-blogs"
+							element={<AllBlogs />}
+						/>
+						<Route
+							path="/user/:userName/liked-blogs"
+							element={<LikedBlogs />}
+						/>
+						<Route
+							path="/user/:userName/bookmarked-blogs"
+							element={<BookmarkedBlogs />}
+						/>
+						<Route
+							path="/user/:userName/comments"
+							element={<Comments />}
+						/>
+						<Route
+							path="/user/:userName/followers"
+							element={<FollowerUsers />}
+						/>
+						<Route
+							path="/user/:userName/Followings"
+							element={<FollowingUsers />}
+						/>
 					</Route>
 
 					<Route path="/blog/:slug" element={<SingleBlog />} />
-					
+
 					<Route element={<UnauthenticatedUserOutletRoute />}>
-						<Route path="/user/signin" element={<UserAuth isSignup={false} />} />
-						<Route path="/user/signup" element={ <UserAuth isSignup /> } />
+						<Route
+							path="/user/signin"
+							element={<UserAuth isSignup={false} />}
+						/>
+						<Route
+							path="/user/signup"
+							element={<UserAuth isSignup />}
+						/>
 					</Route>
 
 					<Route element={<UnauthenticatedAdminOutletRoute />}>
 						<Route path="/admin/auth" element={<AdminAuth />} />
 					</Route>
 				</Route>
-				
+
 				<Route element={<PrivateUserOutletRoute />}>
 					<Route path="/user/dashboard" element={<UserDashboard />} />
-					<Route path="/user/profile/update" element={<UpdateProfile />} />
-					<Route path="/user/password/change" element={<ChangePassword />} />
+					<Route
+						path="/user/profile/update"
+						element={<UpdateProfile />}
+					/>
+					<Route
+						path="/user/password/change"
+						element={<ChangePassword />}
+					/>
 					<Route path="/user/blogs" element={<Blogs />} />
 					<Route path="/user/blog/create" element={<CreateBlog />} />
-					<Route path="/user/blog/:slug/update" element={<UpdateBlog />} />
+					<Route
+						path="/user/blog/:slug/update"
+						element={<UpdateBlog />}
+					/>
 					<Route path="/user/comments" element={<CommentDetails />} />
-					<Route path="/user/blog/:slug/comment/:id/update" element={<UpdateComment />} />
-					<Route path="/user/liked-blogs" element={<LikedBlogsDetails />} />
-					<Route path="/user/bookmarked-blogs" element={<BookmarkedBlogsDetails />} />
-					<Route path="/user/followers" element={<FollowersDetails />} />
-					<Route path="/user/followings" element={<FollowingsDetails />} />
+					<Route
+						path="/user/blog/:slug/comment/:id/update"
+						element={<UpdateComment />}
+					/>
+					<Route
+						path="/user/liked-blogs"
+						element={<LikedBlogsDetails />}
+					/>
+					<Route
+						path="/user/bookmarked-blogs"
+						element={<BookmarkedBlogsDetails />}
+					/>
+					<Route
+						path="/user/followers"
+						element={<FollowersDetails />}
+					/>
+					<Route
+						path="/user/followings"
+						element={<FollowingsDetails />}
+					/>
 				</Route>
 
 				<Route element={<PrivateAdminOutletRoute />}>
-					<Route path="/admin/dashboard" element={<AdminDashboard />} />
+					<Route
+						path="/admin/dashboard"
+						element={<AdminDashboard />}
+					/>
 					<Route path="/admin/users" element={<Users />} />
 					<Route path="/admin/categories" element={<Categories />} />
-					<Route path="/admin/category/create" element={<CreateCategory />} />
+					<Route
+						path="/admin/category/create"
+						element={<CreateCategory />}
+					/>
 				</Route>
-				
-				<Route path="/404" element={<Page404 />}/>
-				<Route path="/*" element={<Navigate to="/404" replace />}/>
+
+				<Route path="/404" element={<Page404 />} />
+				<Route path="/*" element={<Navigate to="/404" replace />} />
 			</Routes>
 
 			<ToastContainer />

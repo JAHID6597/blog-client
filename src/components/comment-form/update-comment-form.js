@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getComment, resetBlogCommentState, resetBlogCommonState, updateComment } from "../../features/blog/blog.slice";
+import {
+	getComment,
+	resetBlogCommentState,
+	resetBlogCommonState,
+	updateComment,
+} from "../../features/blog/blog.slice";
 import CommentForm from "./comment-form";
-
 
 const UpdateCommentForm = () => {
 	const { slug, id } = useParams();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { comment, isError, isCommentUpdateSuccess, isLoading, message } = useSelector((state) => state.blog);
+	const { comment, isError, isCommentUpdateSuccess, isLoading, message } =
+		useSelector((state) => state.blog);
 	const [touched, setTouched] = useState({ comment: true });
 	const [formData, setFormData] = useState({ comment: "" });
 	const [errorMessage, setErrorMessage] = useState({});
@@ -21,19 +26,27 @@ const UpdateCommentForm = () => {
 
 		return () => dispatch(resetBlogCommentState());
 	}, [dispatch, id, navigate, slug]);
-	
+
 	useEffect(() => {
-		if (!slug && !id && isError) navigate('/404');		
+		if (!slug && !id && isError) navigate("/404");
 		else if (isError) toast.error(message);
 
-		if (isCommentUpdateSuccess) toast.success('Successfully updated.');
+		if (isCommentUpdateSuccess) toast.success("Successfully updated.");
 
 		return () => dispatch(resetBlogCommonState());
-	}, [dispatch, id, isError, isCommentUpdateSuccess, message, navigate, slug]);
+	}, [
+		dispatch,
+		id,
+		isError,
+		isCommentUpdateSuccess,
+		message,
+		navigate,
+		slug,
+	]);
 
 	useEffect(() => {
-		setFormData(prevFormData => {
-			return { ...prevFormData, ...comment }
+		setFormData((prevFormData) => {
+			return { ...prevFormData, ...comment };
 		});
 	}, [comment]);
 
@@ -43,7 +56,6 @@ const UpdateCommentForm = () => {
 		if (isSubmit) dispatch(updateComment({ formData, slug, id }));
 	};
 
-	
 	return (
 		<CommentForm
 			name="Update"

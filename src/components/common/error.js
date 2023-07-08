@@ -6,7 +6,7 @@ const Error = ({ message }) => {
 		<Box
 			className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained Mui-required css-1wc848c-MuiFormHelperText-root"
 			id="title-helper-text"
-			sx={{color: 'red'}}
+			sx={{ color: "red" }}
 		>
 			<Box className="MuiBox-root css-tokvmb">{message}</Box>
 		</Box>

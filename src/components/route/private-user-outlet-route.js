@@ -27,7 +27,7 @@ const PrivateUserOutletRoute = () => {
 			dispatch(getPrivateProfile()).then((data) => {
 				if (data.error)
 					localStorage.removeItem(
-						process.env.REACT_APP_AUTH_USER_KEY
+						process.env.REACT_APP_AUTH_USER_KEY,
 					);
 			});
 

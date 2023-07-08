@@ -8,13 +8,29 @@ import validation from "./validation";
 import { encodeHtmlEntity } from "../../utils/html-entity";
 import truncate from "../../utils/truncate";
 
-
 const CreateBlogForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { blog, isError, isUpdateSuccess, isLoading, message } = useSelector((state) => state.blog);
-	const [touched, setTouched] = useState({ title: false, tags: false, categories: false, content: false, cardImage: false, bannerImage: false });
-	const [formData, setFormData] = useState({ title: "", tags: [], categories: [], content: "", cardImage: "", bannerImage: "" });
+	const { blog, isError, isUpdateSuccess, isLoading, message } = useSelector(
+		(state) => state.blog,
+	);
+	const [touched, setTouched] = useState({
+		title: false,
+		tags: false,
+		categories: false,
+		content: false,
+		cardImage: false,
+		bannerImage: false,
+	});
+
+	const [formData, setFormData] = useState({
+		title: "",
+		tags: [],
+		categories: [],
+		content: "",
+		cardImage: "",
+		bannerImage: "",
+	});
 	const [content, setContent] = useState(() => EditorState.createEmpty());
 	const [errorMessage, setErrorMessage] = useState({});
 	const [isSubmit, setSubmit] = useState(false);
@@ -29,15 +45,25 @@ const CreateBlogForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		
-		const allTouched = { title: true, tags: true, categories: true, content: true, cardImage: true, bannerImage: true };
+
+		const allTouched = {
+			title: true,
+			tags: true,
+			categories: true,
+			content: true,
+			cardImage: true,
+			bannerImage: true,
+		};
 		setTouched(allTouched);
 		setErrorMessage(validation(allTouched, formData, setSubmit));
 
-		const newFormData = { ...formData, content: encodeHtmlEntity(formData.content), searchContent: truncate(formData.content) };
+		const newFormData = {
+			...formData,
+			content: encodeHtmlEntity(formData.content),
+			searchContent: truncate(formData.content),
+		};
 
-		if (isSubmit)
-			dispatch(createBlog(newFormData));
+		if (isSubmit) dispatch(createBlog(newFormData));
 	};
 
 	return (

@@ -1,10 +1,19 @@
 import { Delete, Edit } from "@mui/icons-material";
-import { Button, FormControlLabel, IconButton, Stack, Switch } from "@mui/material";
+import {
+	Button,
+	FormControlLabel,
+	IconButton,
+	Stack,
+	Switch,
+} from "@mui/material";
 import moment from "moment";
 import LinkTo from "../../../components/common/link-to";
 
-
-const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, handleDeleteComment) => [
+const commentsTableColumns = (
+	navigateToBlogUpdatePage,
+	handleActiveComment,
+	handleDeleteComment,
+) => [
 	{
 		name: "comment",
 		label: "Comment",
@@ -19,7 +28,7 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => value.userName ,
+			customBodyRender: (value, tableMeta, updateValue) => value.userName,
 		},
 	},
 	{
@@ -28,7 +37,8 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+			customBodyRender: (value, tableMeta, updateValue) =>
+				moment(value, "YYYYMMDD").fromNow(),
 		},
 	},
 	{
@@ -37,7 +47,8 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => moment(value, "YYYYMMDD").fromNow(),
+			customBodyRender: (value, tableMeta, updateValue) =>
+				moment(value, "YYYYMMDD").fromNow(),
 		},
 	},
 	{
@@ -46,18 +57,21 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) =>
+			customBodyRender: (value, tableMeta, updateValue) => (
 				<FormControlLabel
-					sx={{ display: 'block' }}
-        			control={
-          				<Switch
-            				checked={value}
-							onChange={() => handleActiveComment(tableMeta.rowIndex)}
-            				name="isActive"
-            				color="success"
-          				/> 
-        			}
-      			/>
+					sx={{ display: "block" }}
+					control={
+						<Switch
+							checked={value}
+							onChange={() =>
+								handleActiveComment(tableMeta.rowIndex)
+							}
+							name="isActive"
+							color="success"
+						/>
+					}
+				/>
+			),
 		},
 	},
 	{
@@ -66,7 +80,7 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) =>
+			customBodyRender: (value, tableMeta, updateValue) => (
 				<Button
 					as={LinkTo}
 					to={`/blog/${value.slug}`}
@@ -77,7 +91,8 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 					disableElevation
 				>
 					visit this blog
-				</Button>,
+				</Button>
+			),
 		},
 	},
 	{
@@ -86,10 +101,26 @@ const commentsTableColumns = (navigateToBlogUpdatePage, handleActiveComment, han
 		options: {
 			filter: true,
 			sort: true,
-			customBodyRender: (value, tableMeta, updateValue) => <Stack direction="row" spacing={1} sx={{ justifyContent: 'center' }}>
-				<IconButton onClick={() => navigateToBlogUpdatePage(tableMeta.rowIndex)}><Edit /></IconButton>
-				<IconButton onClick={() => handleDeleteComment(tableMeta.rowIndex)}><Delete /></IconButton>
-			</Stack>,
+			customBodyRender: (value, tableMeta, updateValue) => (
+				<Stack
+					direction="row"
+					spacing={1}
+					sx={{ justifyContent: "center" }}
+				>
+					<IconButton
+						onClick={() =>
+							navigateToBlogUpdatePage(tableMeta.rowIndex)
+						}
+					>
+						<Edit />
+					</IconButton>
+					<IconButton
+						onClick={() => handleDeleteComment(tableMeta.rowIndex)}
+					>
+						<Delete />
+					</IconButton>
+				</Stack>
+			),
 		},
 	},
 ];

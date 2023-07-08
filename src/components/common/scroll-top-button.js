@@ -6,18 +6,29 @@ const ScrollTopButton = () => {
 	const trigger = useScrollTrigger({ disableHysteresis: true });
 
 	const handleClick = (event) => {
-		const anchor = (event.target.ownerDocument || document).querySelector("#back-to-top-anchor");
+		const anchor = (event.target.ownerDocument || document).querySelector(
+			"#back-to-top-anchor",
+		);
 
-		if (anchor) anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+		if (anchor)
+			anchor.scrollIntoView({ behavior: "smooth", block: "center" });
 	};
 
 	return (
 		<Zoom in={trigger}>
-			<Box onClick={handleClick} role="presentation" sx={{ position: "fixed", bottom: 16, right: 16, zIndex: 1000 }}>
+			<Box
+				onClick={handleClick}
+				role="presentation"
+				sx={{ position: "fixed", bottom: 16, right: 16, zIndex: 1000 }}
+			>
 				<Fab
 					size="medium"
 					aria-label="scroll back to top"
-					sx={{ background: "#6600ff", color: "white", "&:hover": { background: "#6600ff" } }}
+					sx={{
+						background: "#6600ff",
+						color: "white",
+						"&:hover": { background: "#6600ff" },
+					}}
 				>
 					<KeyboardArrowUp />
 				</Fab>

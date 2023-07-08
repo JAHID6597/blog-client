@@ -12,13 +12,25 @@ const BlogListCard = ({ blog, index }) => {
 					<BlogCardMedia height="290px" blog={blog} />
 				</Box>
 			) : (
-				<Box sx={{ display: "flex", flexDirection: "column", width: { sm: "70%", xs: "100%" } }} >
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						width: { sm: "70%", xs: "100%" },
+					}}
+				>
 					<CardHeaderItem blog={blog} pb={1} />
 					<BlogCardContent blog={blog} />
 				</Box>
 			)}
 			{index & 1 ? (
-				<Box sx={{ display: "flex", flexDirection: "column", width: { sm: "70%", xs: "100%" } }} >
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						width: { sm: "70%", xs: "100%" },
+					}}
+				>
 					<CardHeaderItem blog={blog} pb={1} />
 					<BlogCardContent blog={blog} />
 				</Box>

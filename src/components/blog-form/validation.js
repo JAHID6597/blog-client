@@ -1,8 +1,21 @@
 const validation = (touched, formData, setSubmit) => {
-	const error = { title: "", tags: "", content: "", cardImage: "", bannerImage: "" };
+	const error = {
+		title: "",
+		tags: "",
+		content: "",
+		cardImage: "",
+		bannerImage: "",
+	};
 	let isSubmit = true;
 
-	if (!touched.title || !touched.tags || !touched.categories || !touched.content || !touched.cardImage || !touched.bannerImage)
+	if (
+		!touched.title ||
+		!touched.tags ||
+		!touched.categories ||
+		!touched.content ||
+		!touched.cardImage ||
+		!touched.bannerImage
+	)
 		isSubmit = false;
 
 	if (touched.title && !formData.title) {

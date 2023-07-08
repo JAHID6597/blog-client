@@ -2,11 +2,20 @@ import React from "react";
 import { Box, Typography, TextField } from "@mui/material";
 import { AddPhotoAlternate } from "@mui/icons-material";
 
-const SelectInputImage = ({ getRootProps, getInputProps, onDrop, isDragActive, name, title }) => {
+const SelectInputImage = ({
+	getRootProps,
+	getInputProps,
+	onDrop,
+	isDragActive,
+	name,
+	title,
+}) => {
 	return (
 		<Box
 			sx={{
-				border: `${ isDragActive ? "3px solid #1cdf07" : "3px dotted #d1d6d6" }`,
+				border: `${
+					isDragActive ? "3px solid #1cdf07" : "3px dotted #d1d6d6"
+				}`,
 				width: "100%",
 				height: "285px",
 				background: "#fff",
@@ -28,10 +37,15 @@ const SelectInputImage = ({ getRootProps, getInputProps, onDrop, isDragActive, n
 			</Box>
 
 			<Typography variant="h2" sx={{ fontSize: "20px", p: 1 }}>
-				{ isDragActive ? "Release to upload." : title}
+				{isDragActive ? "Release to upload." : title}
 			</Typography>
 
-			<TextField type="file" hidden name={name || 'file'}  {...getInputProps()} />
+			<TextField
+				type="file"
+				hidden
+				name={name || "file"}
+				{...getInputProps()}
+			/>
 		</Box>
 	);
 };

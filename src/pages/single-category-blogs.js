@@ -5,40 +5,48 @@ import { useParams, useNavigate } from "react-router-dom";
 import CategoryCard from "../components/cat-tag-card/category-card";
 import Main from "../components/search/main/main";
 import { getCategory, resetState } from "../features/category/category.slice";
-import { getBlogsByCategory, resetBlogByCategoryState, resetDataState } from "../features/blog/blog.slice";
-
+import {
+	getBlogsByCategory,
+	resetBlogByCategoryState,
+	resetDataState,
+} from "../features/blog/blog.slice";
 
 const SingleCategoryBlogs = () => {
 	const { slug } = useParams();
 
 	const { category, isError } = useSelector((state) => state.category);
-	const { blogsByCategory, blogsByCategoryMetaData, resetData, isLoading: blogLoading } = useSelector((state) => state.blog);
-	
+	const {
+		blogsByCategory,
+		blogsByCategoryMetaData,
+		resetData,
+		isLoading: blogLoading,
+	} = useSelector((state) => state.blog);
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const [page, setPage] = useState(1);
 
 	useEffect(() => {
-		if (isError) navigate('/404', { replace: true });
+		if (isError) navigate("/404", { replace: true });
 		return () => dispatch(resetState());
 	}, [dispatch, isError, navigate]);
 
 	useEffect(() => {
-		if(slug) dispatch(getCategory(slug));
+		if (slug) dispatch(getCategory(slug));
 
 		return () => dispatch(resetState());
 	}, [dispatch, slug]);
 
 	useEffect(() => {
-		if(slug) dispatch(getBlogsByCategory({ slug, page, limit: 12 }));
+		if (slug) dispatch(getBlogsByCategory({ slug, page, limit: 12 }));
 
 		return () => dispatch(resetBlogByCategoryState());
 	}, [dispatch, page, slug]);
 
 	return (
 		<Container maxWidth="xl">
-			<CategoryCard category={category} urlType='slug' />
+			<CategoryCard category={category} urlType="slug" />
 
 			<Box sx={{ mt: 5 }}>
 				<Main
@@ -53,6 +61,5 @@ const SingleCategoryBlogs = () => {
 		</Container>
 	);
 };
-
 
 export default SingleCategoryBlogs;

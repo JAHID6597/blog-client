@@ -1,4 +1,9 @@
-import { Article, Comment, GroupAddOutlined, GroupAdd } from "@mui/icons-material";
+import {
+	Article,
+	Comment,
+	GroupAddOutlined,
+	GroupAdd,
+} from "@mui/icons-material";
 
 export const getOrganizationsData = (user) =>
 	[
@@ -33,22 +38,30 @@ export const getAvailableItems = (user) =>
 export const getProfileMetaInfoItems = (user) => [
 	{
 		icon: Article,
-		text: `${user?.blogs?.length || 0} blog${user?.blogs?.length > 1 ? "s" : "" } published`,
+		text: `${user?.blogs?.length || 0} blog${
+			user?.blogs?.length > 1 ? "s" : ""
+		} published`,
 		url: `/user/${user?.userName}/all-blogs`,
 	},
 	{
 		icon: Comment,
-		text: `${user?.comments?.length || 0} comment${user?.comments?.length > 1 ? "s" : "" } written`,
+		text: `${user?.comments?.length || 0} comment${
+			user?.comments?.length > 1 ? "s" : ""
+		} written`,
 		url: `/user/${user?.userName}/comments`,
 	},
 	{
 		icon: GroupAddOutlined,
-		text: `${user?.followers?.length || 0} follower${user?.followers?.length > 1 ? "s" : "" }`,
+		text: `${user?.followers?.length || 0} follower${
+			user?.followers?.length > 1 ? "s" : ""
+		}`,
 		url: `/user/${user?.userName}/followers`,
 	},
 	{
 		icon: GroupAdd,
-		text: `${user?.followings?.length || 0} following${user?.followings?.length > 1 ? "s" : "" }`,
+		text: `${user?.followings?.length || 0} following${
+			user?.followings?.length > 1 ? "s" : ""
+		}`,
 		url: `/user/${user?.userName}/followings`,
 	},
 ];

@@ -1,6 +1,14 @@
 import Loader from "../../components/common/loader";
 
-const options = (page, setPage, limit, setLimit, setSearch, isLoading, metaData) => {
+const options = (
+	page,
+	setPage,
+	limit,
+	setLimit,
+	setSearch,
+	isLoading,
+	metaData,
+) => {
 	return {
 		search: false,
 		searchAlwaysOpen: true,
@@ -12,7 +20,7 @@ const options = (page, setPage, limit, setLimit, setSearch, isLoading, metaData)
 		download: false,
 		viewColumns: false,
 		filter: false,
-		responsive: 'standard',
+		responsive: "standard",
 		jumpToPage: true,
 		page: page - 1,
 		count: metaData.total,
@@ -27,8 +35,14 @@ const options = (page, setPage, limit, setLimit, setSearch, isLoading, metaData)
 		searchProps: { onKeyUp: (e) => setSearch(e.target.value) },
 		enableNestedDataAccess: ".",
 		textLabels: {
-			body: { noMatch: isLoading ? <Loader loading={isLoading} /> : 'Sorry, there is no matching data to display' },
-		}
+			body: {
+				noMatch: isLoading ? (
+					<Loader loading={isLoading} />
+				) : (
+					"Sorry, there is no matching data to display"
+				),
+			},
+		},
 	};
 };
 

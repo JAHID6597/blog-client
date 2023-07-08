@@ -1,5 +1,11 @@
 import React from "react";
-import { ListItemIcon, ListItemText, Menu, MenuItem, Fade } from "@mui/material";
+import {
+	ListItemIcon,
+	ListItemText,
+	Menu,
+	MenuItem,
+	Fade,
+} from "@mui/material";
 
 const DropDown = ({ items, anchorEl, setAnchorEl, handleItemClicked }) => {
 	const open = Boolean(anchorEl);
@@ -16,7 +22,14 @@ const DropDown = ({ items, anchorEl, setAnchorEl, handleItemClicked }) => {
 			sx={{ zIndex: 1600 }}
 		>
 			{items.map((item) => (
-				<MenuItem key={item.title} onClick={ item.url ? () => handleItemClicked(item.url) : item.onClick}>
+				<MenuItem
+					key={item.title}
+					onClick={
+						item.url
+							? () => handleItemClicked(item.url)
+							: item.onClick
+					}
+				>
 					<ListItemIcon>{<item.icon />}</ListItemIcon>
 					<ListItemText>{item.title}</ListItemText>
 				</MenuItem>
