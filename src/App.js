@@ -70,99 +70,72 @@ const App = () => {
 
 					<Route path="/user/:userName" element={<UserProfile />} />
 
-					<Route element={<PublicUserInfoLayout />}>
+					<Route
+						path="user/:userName"
+						element={<PublicUserInfoLayout />}
+					>
+						<Route path="all-blogs" element={<AllBlogs />} />
+						<Route path="liked-blogs" element={<LikedBlogs />} />
 						<Route
-							path="/user/:userName/all-blogs"
-							element={<AllBlogs />}
-						/>
-						<Route
-							path="/user/:userName/liked-blogs"
-							element={<LikedBlogs />}
-						/>
-						<Route
-							path="/user/:userName/bookmarked-blogs"
+							path="bookmarked-blogs"
 							element={<BookmarkedBlogs />}
 						/>
-						<Route
-							path="/user/:userName/comments"
-							element={<Comments />}
-						/>
-						<Route
-							path="/user/:userName/followers"
-							element={<FollowerUsers />}
-						/>
-						<Route
-							path="/user/:userName/Followings"
-							element={<FollowingUsers />}
-						/>
+						<Route path="comments" element={<Comments />} />
+						<Route path="followers" element={<FollowerUsers />} />
+						<Route path="followings" element={<FollowingUsers />} />
 					</Route>
 
 					<Route path="/blog/:slug" element={<SingleBlog />} />
 
-					<Route element={<UnauthenticatedUserOutletRoute />}>
+					<Route
+						path="user"
+						element={<UnauthenticatedUserOutletRoute />}
+					>
 						<Route
-							path="/user/signin"
+							path="signin"
 							element={<UserAuth isSignup={false} />}
 						/>
-						<Route
-							path="/user/signup"
-							element={<UserAuth isSignup />}
-						/>
+						<Route path="signup" element={<UserAuth isSignup />} />
 					</Route>
 
-					<Route element={<UnauthenticatedAdminOutletRoute />}>
-						<Route path="/admin/auth" element={<AdminAuth />} />
+					<Route
+						path="admin"
+						element={<UnauthenticatedAdminOutletRoute />}
+					>
+						<Route path="auth" element={<AdminAuth />} />
 					</Route>
 				</Route>
 
-				<Route element={<PrivateUserOutletRoute />}>
-					<Route path="/user/dashboard" element={<UserDashboard />} />
+				<Route path="user" element={<PrivateUserOutletRoute />}>
+					<Route path="dashboard" element={<UserDashboard />} />
+					<Route path="profile/update" element={<UpdateProfile />} />
 					<Route
-						path="/user/profile/update"
-						element={<UpdateProfile />}
-					/>
-					<Route
-						path="/user/password/change"
+						path="password/change"
 						element={<ChangePassword />}
 					/>
-					<Route path="/user/blogs" element={<Blogs />} />
-					<Route path="/user/blog/create" element={<CreateBlog />} />
+					<Route path="blogs" element={<Blogs />} />
+					<Route path="blog/create" element={<CreateBlog />} />
+					<Route path="blog/:slug/update" element={<UpdateBlog />} />
+					<Route path="comments" element={<CommentDetails />} />
 					<Route
-						path="/user/blog/:slug/update"
-						element={<UpdateBlog />}
-					/>
-					<Route path="/user/comments" element={<CommentDetails />} />
-					<Route
-						path="/user/blog/:slug/comment/:id/update"
+						path="blog/:slug/comment/:id/update"
 						element={<UpdateComment />}
 					/>
+					<Route path="liked-blogs" element={<LikedBlogsDetails />} />
 					<Route
-						path="/user/liked-blogs"
-						element={<LikedBlogsDetails />}
-					/>
-					<Route
-						path="/user/bookmarked-blogs"
+						path="bookmarked-blogs"
 						element={<BookmarkedBlogsDetails />}
 					/>
-					<Route
-						path="/user/followers"
-						element={<FollowersDetails />}
-					/>
-					<Route
-						path="/user/followings"
-						element={<FollowingsDetails />}
-					/>
+					<Route path="followers" element={<FollowersDetails />} />
+					<Route path="followings" element={<FollowingsDetails />} />
 				</Route>
 
-				<Route element={<PrivateAdminOutletRoute />}>
+				<Route path="admin" element={<PrivateAdminOutletRoute />}>
+					<Route path="dashboard" element={<AdminDashboard />} />
+					<Route path="users" element={<Users />} />
+					<Route path="categories" element={<Categories />} />
 					<Route
-						path="/admin/dashboard"
-						element={<AdminDashboard />}
-					/>
-					<Route path="/admin/users" element={<Users />} />
-					<Route path="/admin/categories" element={<Categories />} />
-					<Route
-						path="/admin/category/create"
+						path="category/create"
 						element={<CreateCategory />}
 					/>
 				</Route>

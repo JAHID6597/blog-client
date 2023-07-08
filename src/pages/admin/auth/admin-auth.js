@@ -29,20 +29,13 @@ const AdminAuth = () => {
 	const { isError, isSuccess, message } = useSelector((state) => state.admin);
 
 	const [touched, setTouched] = useState({
-		firstName: false,
-		lastName: false,
-		userName: false,
 		email: false,
 		password: false,
-		confirmPassword: false,
 	});
+	
 	const [formData, setFormData] = useState({
-		firstName: "",
-		lastName: "",
-		userName: "",
 		email: "admin@admin.com",
 		password: "aaAA11@@",
-		confirmPassword: "",
 	});
 
 	const [errorMessage, setErrorMessage] = useState({});
