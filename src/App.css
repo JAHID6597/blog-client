@@ -1,0 +1,62 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-button {
+	width: 8px;
+	height: 5px;
+}
+
+::-webkit-scrollbar-track {
+	background: #eee;
+	border: thin solid lightgray;
+	box-shadow: 0px 0px 3px #dfdfdf inset;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgb(184, 181, 181);
+	border: thin solid gray;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #bbbbbb;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+ol,
+ul {
+	padding-left: 2rem;
+}
+
+input[type="date"] {
+	position: relative;
+}
+
+input[type="date"]:before {
+	content: attr(placeholder);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #fff;
+	color: rgba(0, 0, 0, 0.65);
+	line-height: 1.5;
+	padding: 0 0.5rem;
+}
+
+input[type="date"]:focus:before,
+input[type="date"]:not([value=""]):before {
+	display: none;
+}
